@@ -15,16 +15,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
-<<<<<<< HEAD
 	public function index()
 	{
 		$data['countries'] = Countries::getList('en', 'php', 'icu');
 		return View::make('hello', $data);
-=======
-	public function showWelcome()
-	{
-		return View::make('hello');
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 	}
 
 }

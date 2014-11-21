@@ -13,11 +13,7 @@ return array(
 	|
 	*/
 
-<<<<<<< HEAD
 	'debug' => true,
-=======
-	'debug' => false,
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 
 	/*
 	|--------------------------------------------------------------------------
@@ -125,12 +121,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
-<<<<<<< HEAD
 		'Monarobase\CountryList\CountryListServiceProvider',
 
-=======
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 	),
 
 	/*
@@ -197,11 +189,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-
-<<<<<<< HEAD
 		'Countries' 	    => 'Monarobase\CountryList\CountryListFacade',
-=======
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 	),
 
 );

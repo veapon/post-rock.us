@@ -83,11 +83,7 @@ Route::filter('guest', function()
 
 Route::filter('csrf', function()
 {
-<<<<<<< HEAD
-	if (Session::token() != Input::get('_token'))
-=======
 	if (Session::token() !== Input::get('_token'))
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}

@@ -5,13 +5,9 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-<<<<<<< HEAD
 		"laravel/framework": "4.2.*",
 		"monarobase/country-list": "dev-master",
 		"veapon/netease-music": "dev-master"
-=======
-		"laravel/framework": "4.2.*"
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 	},
 	"autoload": {
 		"classmap": [
@@ -39,9 +35,6 @@
 	"config": {
 		"preferred-install": "dist"
 	},
-<<<<<<< HEAD
+
 	"minimum-stability": "dev"
-=======
-	"minimum-stability": "stable"
->>>>>>> e4e59a6e39c3326bbe0bc1e847d63846555211ea
 }

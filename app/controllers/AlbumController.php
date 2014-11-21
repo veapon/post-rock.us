@@ -9,8 +9,10 @@ class AlbumController extends BaseController
 
 	public function create()
 	{
+		// p for post
 		$p = Input::all();
-		var_dump($p);
+
+		$artistId = Artist::firstOrCreate(array('name' => 'John'));
 	}
 
 }
