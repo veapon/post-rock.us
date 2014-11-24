@@ -12,26 +12,33 @@ class AlbumController extends BaseController
 		// p for post
 		$p = Input::all();
 
-		$artist = Artist::where('name', $p['artist'])->first(array('id'));
-		if (!isset($artist->id)) {
+		$artist = new Artist;
+		$artInfo = $artist->where('name', $p['artist'])->first(array('id'));
+		if (!isset($artInfo->id)) {
 			$artist->name = $p['artist'];
 			$artist->region = $p['region'];
 			$artist->create_time = date('Y-m-d H:i:s');
 			$artist->save();
+		} else {
+			$artist->id = $artInfo->id;
 		}
+		
 
 		if (!isset($artist->id)) {
 			die('error: aritst');
 		}
 		
-		$album = Album::where('artist_id', $artist->id)->where('name', $p['album'])->first(array('id'));
-		if (!isset($album->id)) {
+		$album = new Album;
+		$albumInfo = $album->where('artist_id', $artist->id)->where('name', $p['album'])->first(array('id'));
+		if (!isset($albumInfo->id)) {
 			$album->name = $p['album'];
 			$album->artist_id = $artist->id;
 			$album->release_date = date('Y-m-d', strtotime($p['release']));
 			$album->create_time = date('Y-m-d H:i:s');
 			$album->cover = $p['cover'];
 			$album->save();
+		} else {
+			$album->id = $albumInfo->id;
 		}
 
 		if (!isset($album->id)) {
