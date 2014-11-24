@@ -1,5 +1,5 @@
 <?php
-class Artist extends Eloquent 
+class Album extends Eloquent 
 {
 	public $timestamps = false;
 
@@ -8,6 +8,5 @@ class Artist extends Eloquent
 	 *
 	 * @var string
 	 */
-	protected $table = 'artist';
-
+	protected $table = 'album';
 }

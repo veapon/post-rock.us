@@ -155,7 +155,7 @@
 						<div class="form-group">
 						<?php 
 							if (isset($countries['AF'])) {
-								echo '<select class="form-control width-half"><option value="0">Country/Region</option>';
+								echo '<select class="form-control width-half" name="region"><option value="0">Country/Region</option>';
 								foreach ($countries as $v) {
 									echo '<option value="'.$v.'">'.$v.'</option>';
 								}
