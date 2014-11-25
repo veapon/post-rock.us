@@ -40,6 +40,20 @@
 		.width-half{
 			width: 50%;
 		}
+
+		.btn-upload{
+			position: relative;
+			overflow: hidden;
+		}
+
+		.file-upload{
+			position: absolute;
+			top: 0;
+			right: 0;
+			opacity: 0;
+			cursor: pointer;
+    		height: 100%;
+		}
 	</style>
 </head>
 <body>
@@ -116,8 +130,11 @@
 			<form role="form" class="paper" method="post">
 				<div class="row">
 					<div class="col-md-3">
-						<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail cover" id="cover">
-						<input name="cover" id="txtCover" type="hidden" />
+						<div class="btn-upload">						
+							<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail cover" id="cover">
+							<input name="cover" id="txtCover" type="hidden" />
+							<input id="fileupload" type="file" name="files[]" class="file-upload" multiple>
+						</div>
 					</div>
 					<div class="col-md-9">
 						<div class="form-group">
@@ -174,11 +191,12 @@
 			</form>
 		</div>		
 	</div>
-
+	<div id="files"></div>
 	<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 	<script src="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="http://cdn.staticfile.org/holder/2.4.1/holder.js"></script>
-
+	<script src="<?php echo url();?>/assets/js/jquery.ui.widget.js"></script>
+	<script src="<?php echo url();?>/assets/js/jquery.fileupload.js"></script>
 <script>
 $(function(){
 	$('#btnApi').click(function(){
@@ -211,7 +229,18 @@ $(function(){
 			}
 			$('#txtSongs').val(strSongs);
 		})
-	})			
+	})	
+
+
+	$('#fileupload').fileupload({
+        url: url,
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            });
+        }
+    })		
 })
 </script>
 </body>
