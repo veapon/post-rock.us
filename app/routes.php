@@ -17,4 +17,5 @@ Route::get('/spider/{module}/{id}', 'SpiderController@get');
 
 Route::get('/album/new', 'AlbumController@createForm');
 Route::post('/album/new', 'AlbumController@create');
+Route::post('/album/upload', 'AlbumController@picUpload');
 

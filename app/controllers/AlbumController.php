@@ -64,5 +64,10 @@ class AlbumController extends BaseController
 			}			
 		}
 	}
-
+	
+	public function picUpload()
+	{
+		$res = $this->upload();
+		return Response::json(array('url'=>url('pics/temp/'.$res['name'])));
+	}
 }

@@ -7,8 +7,7 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"monarobase/country-list": "dev-master",
-		"veapon/netease-music": "dev-master",
-		"gargron/fileupload": "1.0.*"
+		"veapon/netease-music": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

@@ -15,37 +15,33 @@ class BaseController extends Controller {
 		}
 	}
 
-	protected function upload($module='album')
+	protected function upload(array $cfg = array())
 	{
-		$path = array(
-			'album'	=>
+		$defaults = array(
+			'field'	=>'files',
+			'path'	=>'/pics/temp',
+			'name'	=>md5(time().rand(1000, 9999))
 		);
-		// Simple validation (max file size 2MB and only two allowed mime types)
-		$validator = new FileUpload\Validator\Simple(1024 * 1024 * 2, ['image/png', 'image/jpg']);
 
-		// Simple path resolver, where uploads will be put
-		$pathresolver = new FileUpload\PathResolver\Simple('/my/uploads/dir');
-
-		// The machine's filesystem
-		$filesystem = new FileUpload\FileSystem\Simple();
-
-		// FileUploader itself
-		$fileupload = new FileUpload\FileUpload($_FILES['files'], $_SERVER);
-
-		// Adding it all together. Note that you can use multiple validators or none at all
-		$fileupload->setPathResolver($pathresolver);
-		$fileupload->setFileSystem($filesystem);
-		$fileupload->addValidator($validator);
-
-		// Doing the deed
-		list($files, $headers) = $fileupload->processAll();
-
-		// Outputting it, for example like this
-		foreach($headers as $header => $value) {
-			header($header . ': ' . $value);
+		// combine upload configs
+		$cfg = array_merge($defaults, $cfg);
+		
+		// process file
+		try {
+			$file = Input::file($cfg['field']);
+			$target = public_path() . $cfg['path'];
+			$filename = $cfg['name'] . '.' . $file->getClientOriginalExtension();
+			$file->move($target, $filename);
+			return array(
+				'absPath'	=>$target,
+				'path'		=>$cfg['path'],
+				'name'		=>$filename,
+			);
+		} catch (Exception $e) {
+			$this->uploadError = $e->getMessage();
+			return false;
 		}
-
-		echo json_encode(array('files' => $files));
+				
 	}
 
 }
