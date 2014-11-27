@@ -1,0 +1,52 @@
+body{
+	background: url('../img/bg.jpg') no-repeat bottom right fixed;
+}
+
+.paper{
+	background: #FFF;
+	padding: 40px 20px;
+	border-radius: 4px;
+}
+
+.wrapper{
+	width: 768px;
+	margin: 0 auto;
+}
+
+.main{
+	margin-top: 90px;
+}
+.entry{
+	margin-bottom: 120px;
+}
+
+.entry, .entry-title, .entry-link{
+	color: #FFF;
+}
+
+.form .cover{
+	min-height: 160px;
+	max-width: 360px;
+}
+
+.width-half{
+	width: 65% !important;
+}
+
+.btn-upload{
+	position: relative;
+	overflow: hidden;
+}
+
+.file-upload{
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
+	cursor: pointer;
+	height: 100%;
+}
+
+.input-group-addon{
+	min-width: 45px;
+}

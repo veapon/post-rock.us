@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://pr.vm',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -191,5 +191,14 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Countries' 	    => 'Monarobase\CountryList\CountryListFacade',
 	),
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Pictures upload path and host
+	|--------------------------------------------------------------------------
+	|
+	 */
 
+	'picPath'	=> public_path() . '/pics',
+	'picHost'	=> url('pics'),
 );

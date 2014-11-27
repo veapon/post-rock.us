@@ -18,8 +18,8 @@ class BaseController extends Controller {
 	protected function upload(array $cfg = array())
 	{
 		$defaults = array(
-			'field'	=>'files',
-			'path'	=>'/pics/temp',
+			'field'	=>'file',
+			'path'	=>Config::get('app.picPath') . '/temp',
 			'name'	=>md5(time().rand(1000, 9999))
 		);
 
@@ -29,7 +29,7 @@ class BaseController extends Controller {
 		// process file
 		try {
 			$file = Input::file($cfg['field']);
-			$target = public_path() . $cfg['path'];
+			$target = $cfg['path'];
 			$filename = $cfg['name'] . '.' . $file->getClientOriginalExtension();
 			$file->move($target, $filename);
 			return array(
@@ -42,6 +42,15 @@ class BaseController extends Controller {
 			return false;
 		}
 				
+	}
+
+	protected function savePicture($source, $target)
+	{
+		try {
+			return file_put_contents(Config::get('app.picPath') . $target, file_get_contents($source));
+		} catch (Exception $e)	{
+			return false;
+		}
 	}
 
 }

@@ -1,6 +1,12 @@
 <?php
 class AlbumController extends BaseController 
 {
+	public function index()
+	{
+		$data['data'] = DB::table('album_info')->get();
+		return View::make('albums', $data);
+	}
+
 	public function createForm()
 	{
 		$data['countries'] = Countries::getList('en', 'php', 'icu');
@@ -31,12 +37,15 @@ class AlbumController extends BaseController
 		$album = new Album;
 		$albumInfo = $album->where('artist_id', $artist->id)->where('name', $p['album'])->first(array('id'));
 		if (!isset($albumInfo->id)) {
+			$cover = '/album/' . uniqid() . '.' . getExt($p['cover']);
 			$album->name = $p['album'];
 			$album->artist_id = $artist->id;
 			$album->release_date = date('Y-m-d', strtotime($p['release']));
 			$album->create_time = date('Y-m-d H:i:s');
-			$album->cover = $p['cover'];
+			$album->cover = $cover;
+			$album->tracks = $p['tracks'];
 			$album->save();
+			$this->savePicture($p['cover'], $cover);
 		} else {
 			$album->id = $albumInfo->id;
 		}
@@ -67,7 +76,14 @@ class AlbumController extends BaseController
 	
 	public function picUpload()
 	{
-		$res = $this->upload();
-		return Response::json(array('url'=>url('pics/temp/'.$res['name'])));
+		$res = $this->upload(array('field'=>'file'));
+
+		if (!$res) {
+			$return['error'] = isset($this->uploadError) ? $this->uploadError : 'Upload failed';
+		} else {
+			$return['url'] = Config::get('app.picHost') . '/temp/'.$res['name'];
+		}
+
+		return Response::json($return);
 	}
 }
