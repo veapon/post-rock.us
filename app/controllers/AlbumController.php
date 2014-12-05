@@ -3,7 +3,7 @@ class AlbumController extends BaseController
 {
 	public function index()
 	{
-		$data['data'] = DB::table('album_info')->get();
+		$data['data'] = DB::table('album_info')->paginate(3);
 		return View::make('albums', $data);
 	}
 
@@ -85,5 +85,26 @@ class AlbumController extends BaseController
 		}
 
 		return Response::json($return);
+	}
+
+	public function detail($id)
+	{
+		$data['data'] = DB::table('album_info')->where('album_id', $id)->first();
+
+		return View::make('album', $data);
+	}
+
+	public function editForm($id)
+	{
+		$data['countries'] = Countries::getList('en', 'php', 'icu');
+		$data['data'] = DB::table('album_info')->where('album_id', $id)->first();
+		return View::make('albumEdit', $data);
+	}
+	
+	public function edit()
+	{
+		$data['countries'] = Countries::getList('en', 'php', 'icu');
+		$data['data'] = DB::table('album_info')->where('album_id', $id)->first();
+		return View::make('albumEdit', $data);
 	}
 }

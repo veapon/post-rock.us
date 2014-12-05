@@ -20,35 +20,18 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="btn-upload">						
-							<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail cover" id="cover">
-							<input name="cover" id="txtCover" type="hidden" />
+							<img src="<?php echo Config::get('app.picHost').$data->album_cover; ?>" alt="Cover" class="img-responsive img-thumbnail cover" id="cover">
+							<input name="cover" id="txtCover" type="hidden" value="<?php echo $data->album_cover; ?>"/>
 							<input id="fileupload" type="file" name="file" class="file-upload">
 						</div>
 					</div>
 					<div class="col-md-9">
 						<div class="form-group width-half">
-							
-							<div class="input-group">
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">163<span class="caret"></span></button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a href="javascript:;">163</a></li>
-									</ul>
-								</div><!-- /btn-group -->
-								<input type="text" class="form-control" id="txtApi" placeholder="Album id">
-
-								<span class="input-group-btn">
-							        <button class="btn btn-default" type="button" id="btnApi">Get!</button>
-							    </span>
-							</div><!-- /input-group -->
-						</div>
-
-						<div class="form-group width-half">
 							<div class="input-group input-group">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-user"></span>
 								</span>
-								<input id="txtArtist" type="text" class="form-control" name="artist" placeholder="Artist">	
+								<input id="txtArtist" type="text" class="form-control" name="artist" placeholder="Artist" value="<?php echo $data->artist_name; ?>">	
 							</div>												
 						</div>
 
@@ -57,7 +40,7 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-file"></span>
 								</span>
-								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album">	
+								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album" value="<?php echo $data->album_name; ?>">	
 							</div>
 												
 						</div>
@@ -67,30 +50,13 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
-								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released"  data-date-format="yyyy-mm-dd">
+								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released" value="<?php echo $data->release_date; ?>" data-date-format="yyyy-mm-dd">
 							</div>													
 						</div>
 						
-						<div class="form-group width-half">
-							<div class="input-group input-group">
-								<span class="input-group-addon">									
-									<span class="glyphicon glyphicon-globe"></span>
-								</span>								
-								<?php 
-									if (isset($countries['AF'])) {
-										echo '<select class="form-control" name="region"><option value="0">Country/Region</option>';
-										foreach ($countries as $v) {
-											echo '<option value="'.$v.'">'.$v.'</option>';
-										}
-										echo '</select>';
-									}
-								?>
-							</div>
-						</div>
-
 						<div class="form-group">
 							<label for="txtSongs">Tracks</label>
-							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line"></textarea>	
+							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line"><?php echo $data->tracks; ?></textarea> 
 						</div>
 
 						<!-- <div class="form-group">

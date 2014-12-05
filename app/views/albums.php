@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Index</title>
 	<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://cdn.staticfile.org/bootstrap-datepicker/1.2.0/css/datepicker.min.css">
 	<link rel="stylesheet" href="<?php echo url('assets/css');?>/pr.css">
 </head>
 <body>
@@ -21,14 +20,21 @@
 
 				echo '
 					<div class="entry row">
-						<div class="col-md-6">
-							<img src="'.Config::get('app.picHost').$row->album_cover.'" class="img-responsive" alt="'.$row->album_name.'">
+						<div class="entry-bg"></div>
+						<div class="col-md-4 col-cover">
+							<a href="'.url('album/'.$row->album_id).'">
+								<img src="'.Config::get('app.picHost').$row->album_cover.'" class="img-responsive" alt="'.$row->album_name.'">
+							</a>
 						</div>
 
-						<div class="col-md-6">
-							<h3><a href="#" class="entry-link">'.$row->album_name.'</a></h3>
-							<p><a href="#" class="entry-link">'.$row->artist_name.'</a></p>
-							<p>'.$row->release_date.'</p>
+						<div class="col-md-8">
+							<h3 class="entry-title"><a href="'.url('album/'.$row->album_id).'">'.$row->album_name.'</a></h3>
+							<p class="entry-meta">
+								<a href="#">'.$row->artist_name.'</a>
+							</p>
+							<p class="entry-meta">
+								'.$row->release_date.'
+							</p>
 							<div class="tracks">
 								'.str_replace("\n", "<br>", $row->tracks).'
 							</div>
@@ -36,6 +42,8 @@
 					</div>
 				';
 			endforeach;
+
+			echo '<div class="pager-wrapper">'.$data->links().'</div>';
 			?>
 		</article>
 	</div>

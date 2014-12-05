@@ -16,7 +16,14 @@ Route::get('/', 'HomeController@index');
 Route::get('/spider/{module}/{id}', 'SpiderController@get');
 
 Route::get('/albums', 'AlbumController@index');
+
+Route::get('/album/{id}', 'AlbumController@detail');
+
 Route::get('/album/new', 'AlbumController@createForm');
 Route::post('/album/new', 'AlbumController@create');
+
+Route::get('/album/update/{id}', 'AlbumController@editForm');
+//Route::post('/album/update', 'AlbumController@edit');
+
 Route::post('/album/upload', 'AlbumController@picUpload');
 
