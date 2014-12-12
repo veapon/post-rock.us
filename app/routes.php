@@ -11,6 +11,8 @@
 |
 */
 
+Route::pattern('id', '[0-9]+');
+
 Route::get('/', 'HomeController@index');
 
 Route::get('/spider/{module}/{id}', 'SpiderController@get');
