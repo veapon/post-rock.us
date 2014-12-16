@@ -74,19 +74,6 @@ class AlbumController extends BaseController
 		}
 	}
 	
-	public function picUpload()
-	{
-		$res = $this->upload(array('field'=>'file'));
-
-		if (!$res) {
-			$return['error'] = isset($this->uploadError) ? $this->uploadError : 'Upload failed';
-		} else {
-			$return['url'] = Config::get('app.picHost') . '/temp/'.$res['name'];
-		}
-
-		return Response::json($return);
-	}
-
 	public function detail($id)
 	{
 		$data['data'] = DB::table('albumInfo')->where('album_id', $id)->first();

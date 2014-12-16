@@ -1,3 +1,4 @@
+/*common*/
 body{
 	background: url('../img/bg.jpg') no-repeat bottom right fixed;
 }
@@ -109,6 +110,7 @@ a:hover, a:focus{
 	opacity: 0;
 	cursor: pointer;
 	height: 100%;
+	width: 100%;
 }
 
 .input-group-addon{
@@ -127,4 +129,11 @@ a:hover, a:focus{
 }
 .detail .tracks>p{
 	margin-bottom: 0;
+}
+
+/*artist new*/
+.form .artist-cover{
+	min-height: 180px;
+	max-width: 720px;
+	width: 100%;
 }

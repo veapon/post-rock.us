@@ -44,7 +44,7 @@
 						</div>
 
 						<div class="form-group width-half">
-							<div class="input-group input-group">
+							<div class="input-group">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-user"></span>
 								</span>
@@ -53,7 +53,7 @@
 						</div>
 
 						<div class="form-group width-half">
-							<div class="input-group input-group">
+							<div class="input-group">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-file"></span>
 								</span>
@@ -63,7 +63,7 @@
 						</div>
 
 						<div class="form-group width-half">
-							<div class="input-group input-group">
+							<div class="input-group">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
@@ -72,7 +72,7 @@
 						</div>
 						
 						<div class="form-group width-half">
-							<div class="input-group input-group">
+							<div class="input-group">
 								<span class="input-group-addon">									
 									<span class="glyphicon glyphicon-globe"></span>
 								</span>								
