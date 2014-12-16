@@ -11,7 +11,7 @@
 					<div class="btn-upload" style="text-align: center;">	
 						<?php 
 						if (isset($data['cover'])) {					
-							echo '<img class="band-cover" id="cover" src="'.Config::get('app.picHost').$data['cover'].'">';
+							echo '<img class="img-responsive img-thumbnail band-cover" id="cover" src="'.$data['cover'].'">';
 						} else {
 							echo '<img data-src="holder.js/100%x100%/text:Poster" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover">';
 						}
@@ -70,7 +70,8 @@
 							if (isset($countries['AF'])) {
 								echo '<select class="form-control" name="region" required autocomplete="off"><option value="">Country/Region</option>';
 								foreach ($countries as $v) {
-									echo '<option value="'.$v.'">'.$v.'</option>';
+									$selected = $v == $data['region'] ? ' selected' : '';
+									echo '<option value="'.$v.'"'.$selected.'>'.$v.'</option>';
 								}
 								echo '</select>';
 							}
@@ -112,7 +113,7 @@ $(function(){
     	var data = $(this).serialize();
     	//console.log(data);
     	$.ajax({
-    		url: '<?php echo url("band/create"); ?>',
+    		url: '<?php echo url("band/update"); ?>',
     		type: 'post',
     		data: data, 
     		dataType: 'json'

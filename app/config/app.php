@@ -121,7 +121,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
 		'Monarobase\CountryList\CountryListServiceProvider',
+		'Intervention\Image\ImageServiceProvider',
 
 	),
 
@@ -190,6 +192,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Countries' 	    => 'Monarobase\CountryList\CountryListFacade',
+		'Image' 	    => 'Intervention\Image\Facades\Image',
 	),
 	
 	/*

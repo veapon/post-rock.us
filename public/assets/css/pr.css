@@ -126,14 +126,25 @@ a:hover, a:focus{
 }
 
 .detail-meta{
-	margin-top: 15px;
+	
 }
 .meta-label{
 	font-weight: bold;
+	margin-right: 5px;
 }
 
 .band-cover{
+	display: block;
 	min-height: 180px;
 	max-width: 720px;
 	margin: 0 auto;
+}
+.band-title{
+	margin-top: 20px;
+	margin-bottom: 15px;
+}
+.band-link{
+	font-size: 16px;
+	margin-right: 5px;
+	margin-left: 10px;
 }
