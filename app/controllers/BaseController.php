@@ -60,8 +60,10 @@ class BaseController extends Controller {
 	protected function savePicture($source, $target)
 	{
 		try {
-			return file_put_contents(Config::get('app.picPath') . $target, file_get_contents($source));
+			$rs = file_put_contents(Config::get('app.picPath') . $target, file_get_contents($source));
+			return $rs;
 		} catch (Exception $e)	{
+			var_dump($e);
 			return false;
 		}
 	}

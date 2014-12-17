@@ -1,11 +1,6 @@
 <?php include app_path().'/views/header.php'; ?>
 <body>
 	<div class="wrapper">
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				
-			</div>
-		</nav>
 		<div class="main form">
 			<form role="form" class="paper" method="post" id="bandForm">
 				<div class="from-grup">
@@ -13,8 +8,18 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="btn-upload" style="text-align: center;">						
-						<img data-src="holder.js/100%x100%/text:Poster" alt="Cover" class="img-responsive img-thumbnail artist-cover" id="cover">
+					<div class="btn-upload" style="text-align: center;">	
+						<?php 
+						if (isset($data['cover'])) {					
+							echo '<img class="band-cover" id="cover" src="'.Config::get('app.picHost').$data['cover'].'">';
+						} else {
+							echo '<img data-src="holder.js/100%x100%/text:Poster" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover">';
+						}
+						if (isset($data['id'])) {
+							echo '<input type="hidden" name="id" value="'.$data['id'].'">';
+						}
+						?>
+
 						<input name="poster" id="txtCover" type="hidden" />
 						<input id="fileupload" type="file" name="file" class="file-upload">
 					</div>
@@ -75,9 +80,7 @@
 				
 				<div class="form-group">
 					<label for="txtProfile">Profile</label>
-					<textarea id="txtProfile" class="form-control" name="profile" style="resize: vertical; height: 160px;" autocomplete="off"> 
-						<?php if(isset($data['profile'])) echo $data['profile'];?>
-					</textarea>	
+					<textarea id="txtProfile" class="form-control" name="profile" style="resize: vertical; height: 160px;" autocomplete="off"><?php if(isset($data['profile'])) echo $data['profile'];?></textarea>
 				</div>
 
 				<div class="form-group">
@@ -114,10 +117,12 @@ $(function(){
     		data: data, 
     		dataType: 'json'
     	}).done(function(res){
-    		if (res.status == 0) {
+    		if (res.status == -1) {
     			$('#alert').html('Band <a href="<?php echo url('band'); ?>/'+res.band.id+'" class="alert-link"><b>'+res.band.name+'</b></a> already exists.').show();
+    		} else if(res.status == 0) {
+    			$('#alert').html('Something went wrong.').show();
     		} else if(res.status == 1) {
-
+    			location.href = res.url;
     		}
     	})
     })
