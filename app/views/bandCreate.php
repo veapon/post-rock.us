@@ -1,5 +1,16 @@
-<?php include app_path().'/views/header.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="pragma" content="no-cache" />
+	<?php include app_path().'/views/header.php'; ?>	
+	<link rel="stylesheet" href="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda-themeless.min.css">
+</head> 
 <body>
+	<header role="banner" class="navbar header">
+		<div class="wrapper">
+			<a class="logo" href="/">POST-ROCK.US</a>
+		</div>
+	</header>
 	<div class="wrapper">
 		<div class="main form">
 			<form role="form" class="paper" method="post" id="bandForm">
@@ -13,7 +24,7 @@
 						if (isset($data['cover'])) {					
 							echo '<img class="img-responsive img-thumbnail band-cover" id="cover" src="'.$data['cover'].'">';
 						} else {
-							echo '<img data-src="holder.js/100%x100%/text:Poster" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover">';
+							echo '<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover">';
 						}
 						if (isset($data['id'])) {
 							echo '<input type="hidden" name="id" value="'.$data['id'].'">';
@@ -70,7 +81,7 @@
 							if (isset($countries['AF'])) {
 								echo '<select class="form-control" name="region" required autocomplete="off"><option value="">Country/Region</option>';
 								foreach ($countries as $v) {
-									$selected = $v == $data['region'] ? ' selected' : '';
+									$selected = (isset($data['region']) && $v == $data['region']) ? ' selected' : '';
 									echo '<option value="'.$v.'"'.$selected.'>'.$v.'</option>';
 								}
 								echo '</select>';
@@ -85,7 +96,8 @@
 				</div>
 
 				<div class="form-group">
-					<button type="submit" class="btn btn-default">Submit</button>
+					<!-- <button type="submit" class="btn btn-primary ladda-button" id="btnSubmit" data-style="expand-right"><span class="ladda-label">Submit</span></button> -->
+					<button data-style="expand-right" class="btn btn-primary ladda-button" id="btnSubmit" data-size="s"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
 				</div>
 
 			</form>
@@ -96,9 +108,11 @@
 	<script src="http://cdn.staticfile.org/holder/2.4.1/holder.js"></script>
 	<script src="<?php echo url();?>/assets/js/jquery.ui.widget.js"></script>
 	<script src="<?php echo url();?>/assets/js/jquery.fileupload.js"></script>
-	<script src="http://cdn.staticfile.org/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/spin.min.js"></script>
+	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda.min.js"></script>	
 <script>
 $(function(){
+	$('#btnSubmit').removeAttr('disabled');
 	$('#fileupload').fileupload({
         url: '<?php echo url("upload/tmp"); ?>',
         dataType: 'json',
@@ -110,10 +124,14 @@ $(function(){
 
     $('#bandForm').on('submit', function(e){
     	e.preventDefault();
+    	var l = Ladda.create(document.querySelector('#btnSubmit'));
+	 	l.start();
+	 	$('#fileupload').fileupload('disable');
+
     	var data = $(this).serialize();
     	//console.log(data);
     	$.ajax({
-    		url: '<?php echo url("band/update"); ?>',
+    		url: '<?php if(isset($data["id"])){ echo url("band/update"); }else{ echo url("band/create"); }?>',
     		type: 'post',
     		data: data, 
     		dataType: 'json'
@@ -125,6 +143,9 @@ $(function(){
     		} else if(res.status == 1) {
     			location.href = res.url;
     		}
+    	}).always(function(){
+    		l.stop();
+    		$('#fileupload').fileupload('enable');
     	})
     })
 
