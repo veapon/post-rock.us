@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Index</title>
-	<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?php echo url('assets/css');?>/pr.css">
+	<?php include app_path().'/views/header.php'; ?>	
 </head>
 <body>
-	<div class="wrapper">
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-
-			</div>
-		</nav>
+	<?php include app_path().'/views/banner.php'; ?>
+	<div class="wrapper">			
 		<article class="main entry-list">
 			<?php
 			foreach ($data as $row):

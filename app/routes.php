@@ -25,7 +25,7 @@ Route::get('/album/update/{id}', 'AlbumController@editForm');
 Route::post('/album/update', 'AlbumController@edit');
 Route::post('/upload/tmp', 'AlbumController@tmpPicUpload');
 
-
+Route::get('/bands', 'BandController@index');
 Route::get('/band/create', 'BandController@createForm');
 Route::post('/band/create', 'BandController@create');
 Route::get('/band/{id}', 'BandController@detail');

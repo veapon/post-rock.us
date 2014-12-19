@@ -1,6 +1,6 @@
 /*common*/
 body{
-	background: url('../img/bg.jpg') no-repeat bottom right fixed;
+	background: url('../img/bg.jpg') no-repeat top right fixed;
 }
 a{
 	color: #222;
@@ -10,8 +10,25 @@ a:hover, a:focus{
 	color: #f30;
 	outline: none;
 }
+.opacity-container{
+	position: relative;
+}
+.opacity-bg{
+	background: #FFF;
+	border-radius: 4px;
+	opacity: .85;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
 .header{
 	margin-top: 10px;
+}
+.logo-wrapper{
 	text-align: center;
 }
 .logo{
@@ -19,6 +36,14 @@ a:hover, a:focus{
 	font-size: 30px;
 	font-family: impact;
 	margin: 30px 0;
+	text-shadow: 1px 1px 0 #222;
+}
+.nav{
+	text-align: center;
+	color: #FFF;
+}
+.nav-item{
+	color: #FFF;
 }
 .paper{
 	background: #FFF;
@@ -59,21 +84,8 @@ a:hover, a:focus{
 .pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus{
 	color: #ddd;
 }
-.opacity-container{
-	position: relative;
-}
-.opacity-bg{
-	background: #FFF;
-	border-radius: 4px;
-	opacity: .85;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: -1;
-}
 
+/*
 .entry{
 	margin-bottom: 45px;
 	border-radius: 4px;
@@ -97,10 +109,11 @@ a:hover, a:focus{
 .entry .tracks{
 	margin-top: 7px;
 }
-
+*/
 .col-cover{
 	padding: 0 15px 0 0;
 }
+
 .form .cover{
 	min-height: 160px;
 	max-width: 360px;
@@ -142,9 +155,9 @@ a:hover, a:focus{
 	margin-right: 5px;
 }
 
+
 .band-cover{
 	display: block;
-	min-height: 180px;
 	max-width: 720px;
 	margin: 0 auto;
 }
@@ -156,4 +169,14 @@ a:hover, a:focus{
 	font-size: 16px;
 	margin-right: 5px;
 	margin-left: 10px;
+}
+.band-entry{
+	padding: 15px;
+	margin-bottom: 45px;
+}
+.band-entry .entry-title{
+	margin-bottom: 15px;
+}
+.band-entry .band-cover{
+	width: 100%;
 }

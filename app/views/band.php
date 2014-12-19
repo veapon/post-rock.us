@@ -1,5 +1,11 @@
-<?php include app_path().'/views/header.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><?php echo $data->name;?></title>
+	<?php include app_path().'/views/header.php'; ?>	
+</head>
 <body>
+	<?php include app_path().'/views/banner.php'; ?>
 	<div class="wrapper">
 		<div class="main opacity-container">
 			<div class="opacity-bg"></div>
@@ -20,6 +26,16 @@
 					if ($data->facebook) {
 						echo '
 							<a href="'.$data->facebook.'" target="_blank" class="band-link" title="Facebook"><i class="fa fa-facebook-square"></i></a>
+						';
+					}
+					if ($data->twitter) {
+						echo '
+							<a href="'.$data->twitter.'" target="_blank" class="band-link" title="Twitter"><i class="fa fa-twitter"></i></a>
+						';
+					}
+					if ($data->soundcloud) {
+						echo '
+							<a href="'.$data->soundcloud.'" target="_blank" class="band-link" title="SoundClound"><i class="fa fa-soundcloud"></i></a>
 						';
 					}
 					if ($data->bandcamp) {

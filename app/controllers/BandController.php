@@ -3,8 +3,16 @@ class BandController extends BaseController
 {
 	public function index()
 	{
-		$data['data'] = DB::table('albumInfo')->paginate(3);
-		return View::make('albums', $data);
+		$where = array();
+		if ($region = Input::get('region')) {
+			$where['region'] = $region;
+		}
+		
+		$data['data'] = DB::table('band')
+			->where($where)
+			->orderBy('id', 'desc')
+			->paginate(10);
+		return View::make('bands', $data);
 	}
 
 	public function createForm()
@@ -34,6 +42,8 @@ class BandController extends BaseController
 			'region'	=>$p['region'],
 			'homepage'	=>$p['homepage'],
 			'facebook'	=>$p['facebook'],
+			'twitter'	=>$p['twitter'],
+			'soundcloud'	=>$p['soundcloud'],
 			'bandcamp'	=>$p['bandcamp'],
 			'profile'	=>$p['profile'],
 		);
@@ -89,6 +99,8 @@ class BandController extends BaseController
 			'homepage'	=>$p['homepage'],
 			'facebook'	=>$p['facebook'],
 			'bandcamp'	=>$p['bandcamp'],
+			'twitter'	=>$p['twitter'],
+			'soundcloud'	=>$p['soundcloud'],
 			'profile'	=>$p['profile'],
 			'update_time'	=>date('Y-m-d H:i:s')
 		);

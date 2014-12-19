@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="pragma" content="no-cache" />
+	<title>
+		<?php
+			if (isset($data['id'])) {
+				echo 'Band/update';
+			} else {
+				echo 'Band/create';
+			}
+		?>
+		
+	</title>
 	<?php include app_path().'/views/header.php'; ?>	
 	<link rel="stylesheet" href="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda-themeless.min.css">
 </head> 
 <body>
-	<header role="banner" class="navbar header">
-		<div class="wrapper">
-			<a class="logo" href="/">POST-ROCK.US</a>
-		</div>
-	</header>
+	<?php include app_path().'/views/banner.php'; ?>	
 	<div class="wrapper">
 		<div class="main form">
 			<form role="form" class="paper" method="post" id="bandForm">
@@ -24,7 +29,7 @@
 						if (isset($data['cover'])) {					
 							echo '<img class="img-responsive img-thumbnail band-cover" id="cover" src="'.$data['cover'].'">';
 						} else {
-							echo '<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover">';
+							echo '<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover" style="min-height: 180px;">';
 						}
 						if (isset($data['id'])) {
 							echo '<input type="hidden" name="id" value="'.$data['id'].'">';
@@ -62,6 +67,22 @@
 						<input id="txtFacebook" type="url" class="form-control" name="facebook" placeholder="Facebook" value="<?php if(isset($data['facebook'])) echo $data['facebook'];?>" autocomplete="off">	
 					</div>												
 				</div>		
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-twitter"></i>
+						</span>
+						<input id="txtTwitter" type="url" class="form-control" name="twitter" placeholder="Twitter" value="<?php if(isset($data['twitter'])) echo $data['twitter'];?>" autocomplete="off">	
+					</div>												
+				</div>	
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-soundcloud"></i>
+						</span>
+						<input id="txtSoundcloud" type="url" class="form-control" name="soundcloud" placeholder="Soundcloud" value="<?php if(isset($data['soundcloud'])) echo $data['soundcloud'];?>" autocomplete="off">	
+					</div>												
+				</div>	
 
 				<div class="form-group">
 					<div class="input-group col-md-7">

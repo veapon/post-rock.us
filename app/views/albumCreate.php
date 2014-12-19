@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Index</title>
-	<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+	<title>
+		<?php
+			if (isset($data['id'])) {
+				echo 'Band/update';
+			} else {
+				echo 'Band/create';
+			}
+		?>
+		
+	</title>
+	<?php include app_path().'/views/header.php'; ?>	
+	<link rel="stylesheet" href="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda-themeless.min.css">
 	<link rel="stylesheet" href="http://cdn.staticfile.org/bootstrap-datepicker/1.2.0/css/datepicker.min.css">
-	<link rel="stylesheet" href="<?php echo url('assets/css');?>/pr.css">
-</head>
+</head> 
 <body>
+	<?php include app_path().'/views/banner.php'; ?>	
 	<div class="wrapper">
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-
-			</div>
-		</nav>
 		<div class="main form">
 			<form role="form" class="paper" method="post">
 				<div class="row">
