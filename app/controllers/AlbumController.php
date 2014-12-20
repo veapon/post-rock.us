@@ -9,7 +9,7 @@ class AlbumController extends BaseController
 
 	public function createForm()
 	{
-		$data['countries'] = Countries::getList('en', 'php', 'icu');
+		$data = array();
 		return View::make('albumCreate', $data);
 	}
 

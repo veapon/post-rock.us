@@ -49,15 +49,6 @@
 						<div class="form-group width-half">
 							<div class="input-group">
 								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-user"></span>
-								</span>
-								<input id="txtArtist" type="text" class="form-control" name="artist" placeholder="Artist">	
-							</div>												
-						</div>
-
-						<div class="form-group width-half">
-							<div class="input-group">
-								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-file"></span>
 								</span>
 								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album">	
@@ -73,33 +64,23 @@
 								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released"  data-date-format="yyyy-mm-dd">
 							</div>													
 						</div>
-						
 						<div class="form-group width-half">
-							<div class="input-group">
-								<span class="input-group-addon">									
-									<span class="glyphicon glyphicon-globe"></span>
-								</span>								
-								<?php 
-									if (isset($countries['AF'])) {
-										echo '<select class="form-control" name="region"><option value="0">Country/Region</option>';
-										foreach ($countries as $v) {
-											echo '<option value="'.$v.'">'.$v.'</option>';
-										}
-										echo '</select>';
-									}
-								?>
-							</div>
+							<div class="input-group dropdown">
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-user"></span>
+								</span>
+								<input id="txtBand" type="text" class="form-control" name="artist" placeholder="Band">	
+								<ul class="dropdown-menu" role="menu">
+										
+								</ul>
+								<input type="hidden" name="performer_id" id="txtPerId">
+							</div>												
 						</div>
 
 						<div class="form-group">
 							<label for="txtSongs">Tracks</label>
 							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line"></textarea>	
 						</div>
-
-						<!-- <div class="form-group">
-							<label for="txtLinks">Links</label>
-							<textarea id="txtLinks" class="form-control" rows="3" name="tracks" style="resize: vertical" placeholder="Markdown is supported"></textarea>	
-						</div> -->
 
 						<div class="form-group">
 							<button type="submit" class="btn btn-default">Submit</button>
@@ -119,6 +100,7 @@
 	<script src="http://cdn.staticfile.org/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 <script>
 $(function(){
+	// btnApi click start
 	$('#btnApi').click(function(){
 		var id = $('#txtApi').val();
 		if (!id) {
@@ -150,17 +132,127 @@ $(function(){
 			$('#txtSongs').val(strSongs);
 		})
 	})	
+	// btnApi click end
 
+	// fileupload start
 	$('#fileupload').fileupload({
-        url: '<?php echo url("album/upload"); ?>',
+        url: '<?php echo url("upload/tmp"); ?>',
         dataType: 'json',
         done: function (e, data) {      	
             $('#txtCover').val(data.result.url);
             $('#cover').attr('src', data.result.url);
         }
     })		
+    // fileupload end
 
-    $('#txtDate').datepicker({autoclose: true});
+    // fileupload start
+    // 表演者下拉列表事件
+	$('.dropdown-menu').on('keyup', function(evt){
+		var menuitem = $('.dropdown-menu li');
+		var curt_focus = $('.suggest_item a:focus').parent('li').index();
+
+		// up键事件
+		if( evt.keyCode == 38 )
+		{
+			if( curt_focus > 0 )
+			{
+				menuitem.eq(curt_focus-1).find('a').focus();
+			}
+			else if( curt_focus ==0 )
+			{
+				$('#txtBand').focus();
+			}
+
+		}
+		// down 键
+		else if( evt.keyCode == 40 )
+		{
+			
+			if( curt_focus == menuitem.length - 1 )
+			{
+				menuitem.first().find('a').focus();
+			}
+			else if( curt_focus >= 0 )
+			{
+				menuitem.eq(curt_focus-0+1).find('a').focus();
+			}				
+		}
+		// 回车
+		else if( evt.keyCode == 13 )
+		{
+			select_item(curt_focus);
+			hide_menu();
+		}
+		// ESC
+		else if( evt.keyCode == 27 )
+		{
+			hide_menu();
+		}
+
+		return false;
+	})
+
+	// Band search start
+	$('#txtBand').on('keyup', function(evt){
+		var menuitem = $('.dropdown-menu li');
+
+		// down键
+		if( evt.keyCode == 40 )
+		{
+			if( menuitem.length == 0 ) return false;
+
+			var curt_focus = $('.suggest_item a:focus').parent('li').index();
+			
+			if( curt_focus == -1 )
+			{
+				menuitem.first().find('a').focus();
+			}
+
+			return false;
+		}
+		// 方向键不响应
+		else if( evt.keyCode != 37 && evt.keyCode != 39 )
+		{
+			var key = $(this).val();
+			if( !key )
+			{
+				$('.dropdown-menu').html('');
+				return false;
+			} 
+
+			$.ajax({
+				url: '<?php echo url("band/index"); ?>?f=json&q='+encodeURIComponent(key),
+				dataType: 'json',
+				success: function(data){
+
+					if( data && data.length > 0 )
+					{
+						var html = '';
+						for( var i in data )
+						{
+							html += '<li class="suggest_item" data-id="'+data[i]['performer_id']+'" onclick="select_item( $(this).index() ); hide_menu();"><a role="menuitem" href="javascript:;">'+data[i]['name']+'</a></li>';
+						}
+
+						if( html )
+						{
+							$('.dropdown-menu').html(html).slideDown('fast');
+						}
+						else
+						{
+							hide_menu();
+						}
+					} 
+					else
+					{
+						hide_menu();
+					}
+				}
+			}) // ajax end
+		}
+		
+	})
+	// Band search end
+	
 })
 </script>
 </body>

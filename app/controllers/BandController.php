@@ -3,16 +3,34 @@ class BandController extends BaseController
 {
 	public function index()
 	{
-		$where = array();
+		// query condition
+		$whereField = '1';
+		$whereOperator = '=';
+		$whereValue = '1';
+
 		if ($region = Input::get('region')) {
-			$where['region'] = $region;
+			$whereField = 'region';
+			$whereValue = $region;
+		}
+
+		if ($query = Input::get('query')) {
+			$whereField = 'name';
+			$whereOperator = 'like';
+			$whereValue = '%'.$query.'%';
 		}
 		
+		// execute the query
 		$data['data'] = DB::table('band')
 			->where($where)
 			->orderBy('id', 'desc')
 			->paginate(10);
-		return View::make('bands', $data);
+
+		// make a proper response
+		if (Input::get('f') == 'json') {
+			return Response::json($data);
+		} else {
+			return View::make('bands', $data);
+		}
 	}
 
 	public function createForm()
