@@ -4,30 +4,32 @@ class BandController extends BaseController
 	public function index()
 	{
 		// query condition
-		$whereField = '1';
-		$whereOperator = '=';
-		$whereValue = '1';
+		$where = '1=1';
+		$binding = array();
 
 		if ($region = Input::get('region')) {
-			$whereField = 'region';
-			$whereValue = $region;
+			$where = 'region=:reg';
+			$binding[':reg'] = $region;
 		}
 
-		if ($query = Input::get('query')) {
-			$whereField = 'name';
-			$whereOperator = 'like';
-			$whereValue = '%'.$query.'%';
+		if ($query = Input::get('q')) {
+			$where = 'name LIKE :q';
+			$binding[':q'] = '%'.$query.'%';
 		}
 		
 		// execute the query
 		$data['data'] = DB::table('band')
-			->where($where)
+			->whereRaw($where, $binding)
 			->orderBy('id', 'desc')
 			->paginate(10);
 
 		// make a proper response
 		if (Input::get('f') == 'json') {
-			return Response::json($data);
+			$return = array();
+			foreach ($data['data'] as $row) {
+				$return[] = $row;
+			}
+			return Response::json($return);
 		} else {
 			return View::make('bands', $data);
 		}

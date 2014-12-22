@@ -4,9 +4,9 @@
 	<title>
 		<?php
 			if (isset($data['id'])) {
-				echo 'Band/update';
+				echo 'Album/update';
 			} else {
-				echo 'Band/create';
+				echo 'Album/create';
 			}
 		?>
 		
@@ -65,15 +65,17 @@
 							</div>													
 						</div>
 						<div class="form-group width-half">
+							<div id="selectedBands" class="selected-bands">
+								<!-- <span class="label label-success selected-band">Success <span class="cancle-select-band" aria-hidden="true">&times;</span></span> -->
+							</div>
 							<div class="input-group dropdown">
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-user"></span>
 								</span>
-								<input id="txtBand" type="text" class="form-control" name="artist" placeholder="Band">	
-								<ul class="dropdown-menu" role="menu">
+								<input id="txtBand" type="text" class="form-control" name="artist" placeholder="Band" autocomplete="off">	
+								<ul class="dropdown-menu band-suggest-result" role="menu">
 										
-								</ul>
-								<input type="hidden" name="performer_id" id="txtPerId">
+								</ul>								
 							</div>												
 						</div>
 
@@ -86,9 +88,7 @@
 							<button type="submit" class="btn btn-default">Submit</button>
 						</div>
 					</div>
-				</div>
-				
-				
+				</div>			
 			</form>
 		</div>		
 	</div>
@@ -145,10 +145,10 @@ $(function(){
     })		
     // fileupload end
 
-    // fileupload start
+    // search start
     // 表演者下拉列表事件
-	$('.dropdown-menu').on('keyup', function(evt){
-		var menuitem = $('.dropdown-menu li');
+	$('.band-suggest-result').on('keyup', function(evt){
+		var menuitem = $('.band-suggest-result li');
 		var curt_focus = $('.suggest_item a:focus').parent('li').index();
 
 		// up键事件
@@ -193,8 +193,8 @@ $(function(){
 	})
 
 	// Band search start
-	$('#txtBand').on('keyup', function(evt){
-		var menuitem = $('.dropdown-menu li');
+	$('#txtBand').on('input', function(evt){
+		var menuitem = $('.band-suggest-result li');
 
 		// down键
 		if( evt.keyCode == 40 )
@@ -216,44 +216,71 @@ $(function(){
 			var key = $(this).val();
 			if( !key )
 			{
-				$('.dropdown-menu').html('');
+				hide_menu();
+				$('.band-suggest-result').html('');
 				return false;
 			} 
 
-			$.ajax({
-				url: '<?php echo url("band/index"); ?>?f=json&q='+encodeURIComponent(key),
-				dataType: 'json',
-				success: function(data){
-
-					if( data && data.length > 0 )
-					{
-						var html = '';
-						for( var i in data )
-						{
-							html += '<li class="suggest_item" data-id="'+data[i]['performer_id']+'" onclick="select_item( $(this).index() ); hide_menu();"><a role="menuitem" href="javascript:;">'+data[i]['name']+'</a></li>';
-						}
-
-						if( html )
-						{
-							$('.dropdown-menu').html(html).slideDown('fast');
-						}
-						else
-						{
-							hide_menu();
-						}
-					} 
-					else
-					{
-						hide_menu();
-					}
-				}
-			}) // ajax end
+			get_suggest(key);
+		}
+		else if( evt.keyCode == 27 )
+		{
+			hide_menu();
 		}
 		
 	})
 	// Band search end
+
+	// remove selected band
+	$('body').on('click', '.selected-band', function(){
+		$('#txtBand'+$(this).data('id')).remove();
+		$(this).remove();
+	})
 	
 })
+
+function hide_menu()
+{
+	$('.band-suggest-result').hide();
+}
+
+function select_item(i)
+{
+	var band = $('.band-suggest-result li').eq(i).data();
+	$('#selectedBands').append('<span class="label label-success selected-band" data-id="'+band['id']+'" title="'+band['name']+'">'+band['name']+' <span class="cancle-select-band" aria-hidden="true">&times;</span></span><input type="hidden" name="bands[]" value="'+band['id']+'" id="txtBand'+band['id']+'">');
+}
+
+function get_suggest(key)
+{
+	$.ajax({
+		url: '<?php echo url("bands"); ?>?f=json&q='+encodeURIComponent(key),
+		dataType: 'json',
+		success: function(data){
+
+			if( data && data.length > 0 )
+			{
+				var html = '';
+				for( var i in data )
+				{
+					html += '<li class="suggest_item" data-id="'+data[i]['id']+'" data-name="'+data[i]['name']+'" onclick="select_item( $(this).index() ); hide_menu();"><a role="menuitem" href="javascript:;">'+data[i]['name']+'</a></li>';
+				}
+
+				if( html )
+				{
+					$('.band-suggest-result').html(html).slideDown('fast');
+				}
+				else
+				{
+					hide_menu();
+				}
+			} 
+			else
+			{
+				hide_menu();
+			}
+		}
+	}) // ajax end
+}
 </script>
 </body>
 </html>

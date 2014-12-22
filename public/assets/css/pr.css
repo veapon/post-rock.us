@@ -155,7 +155,7 @@ a:hover, a:focus{
 	margin-right: 5px;
 }
 
-
+/* band */
 .band-cover{
 	display: block;
 	max-width: 720px;
@@ -179,4 +179,18 @@ a:hover, a:focus{
 }
 .band-entry .band-cover{
 	width: 100%;
+}
+
+/*album */
+.selected-bands{
+	margin-bottom: 3px;
+}
+.selected-band{
+	display: inline-block;
+	margin-right: 5px;
+	cursor: pointer;
+	font-size: 12px;
+	max-width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
