@@ -19,7 +19,11 @@
 	<?php include app_path().'/views/banner.php'; ?>	
 	<div class="wrapper">
 		<div class="main form">
-			<form role="form" class="paper" method="post">
+			<form role="form" class="paper" method="post" id="albumForm">
+				<div class="from-grup">
+					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-3">
 						<div class="btn-upload">						
@@ -85,7 +89,7 @@
 						</div>
 
 						<div class="form-group">
-							<button type="submit" class="btn btn-default">Submit</button>
+							<button type="submit" class="btn btn-default" id="btnSubmit" data-style="expand-right" class="btn btn-primary ladda-button" data-size="s">Submit</button>
 						</div>
 					</div>
 				</div>			
@@ -98,6 +102,8 @@
 	<script src="<?php echo url();?>/assets/js/jquery.ui.widget.js"></script>
 	<script src="<?php echo url();?>/assets/js/jquery.fileupload.js"></script>
 	<script src="http://cdn.staticfile.org/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/spin.min.js"></script>
+	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda.min.js"></script>	
 <script>
 $(function(){
 	// btnApi click start
@@ -236,6 +242,42 @@ $(function(){
 		$('#txtBand'+$(this).data('id')).remove();
 		$(this).remove();
 	})
+
+	// band form submit start
+    $('#albumForm').on('submit', function(e){
+    	e.preventDefault();
+    	var l = Ladda.create(document.querySelector('#btnSubmit'));
+	 	l.start();
+	 	$('#fileupload').fileupload('disable');
+
+	 	// validation
+	 	if ($('.selected-band').length < 1) {
+	 		$('#alert').html('You must select a band.').show();
+	 		$('#txtBand').parents('.form-group ').addClass('has-error');
+	 		return false;
+	 	}
+
+    	var data = $(this).serialize();
+    	//console.log(data);
+    	$.ajax({
+    		url: '<?php if(isset($data["id"])){ echo url("album/update"); }else{ echo url("album/create"); }?>',
+    		type: 'post',
+    		data: data, 
+    		dataType: 'json'
+    	}).done(function(res){
+    		if (res.status == -1) {
+    			$('#alert').html('Band <a href="<?php echo url('band'); ?>/'+res.band.id+'" class="alert-link"><b>'+res.band.name+'</b></a> already exists.').show();
+    		} else if(res.status == 0) {
+    			$('#alert').html('Something went wrong.').show();
+    		} else if(res.status == 1) {
+    			location.href = res.url;
+    		}
+    	}).always(function(){
+    		l.stop();
+    		$('#fileupload').fileupload('enable');
+    	})
+    })
+    // band form submit end
 	
 })
 

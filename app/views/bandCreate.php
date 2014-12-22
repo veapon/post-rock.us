@@ -118,7 +118,7 @@
 
 				<div class="form-group">
 					<!-- <button type="submit" class="btn btn-primary ladda-button" id="btnSubmit" data-style="expand-right"><span class="ladda-label">Submit</span></button> -->
-					<button data-style="expand-right" class="btn btn-primary ladda-button" id="btnSubmit" data-size="s"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+					<button data-style="expand-right" class="btn btn-primary ladda-button" data-size="s" id="btnSubmit"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
 				</div>
 
 			</form>
@@ -143,6 +143,7 @@ $(function(){
         }
     })		
 
+	// band form submit start
     $('#bandForm').on('submit', function(e){
     	e.preventDefault();
     	var l = Ladda.create(document.querySelector('#btnSubmit'));
@@ -169,6 +170,7 @@ $(function(){
     		$('#fileupload').fileupload('enable');
     	})
     })
+    // band form submit end
 
 })
 </script>
