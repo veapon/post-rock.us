@@ -128,7 +128,7 @@ $(function(){
 			for (i in res['data']['artist']) {
 				strArtist += ',' + res['data']['artist'][i]['name'];
 			}
-			$('#txtArtist').val(strArtist.substr(1));
+			$('#txtBand').val(strArtist.substr(1));
 
 			// songs
 			var strSongs = '';
@@ -154,7 +154,7 @@ $(function(){
     // search start
     // 表演者下拉列表事件
 	$('.band-suggest-result').on('keyup', function(evt){
-		var menuitem = $('.band-suggest-result li');
+		var menuitem = $('.suggest_item');
 		var curt_focus = $('.suggest_item a:focus').parent('li').index();
 
 		// up键事件
@@ -200,8 +200,19 @@ $(function(){
 
 	// Band search start
 	$('#txtBand').on('input', function(evt){
-		var menuitem = $('.band-suggest-result li');
+		
+		var key = $(this).val();
+		if( !key )
+		{
+			hide_menu();
+			$('.band-suggest-result').html('');
+			return false;
+		} 
 
+		get_suggest(key);
+
+	}).on('keyup', function(evt){
+		var menuitem = $('.suggest_item');
 		// down键
 		if( evt.keyCode == 40 )
 		{
@@ -216,24 +227,10 @@ $(function(){
 
 			return false;
 		}
-		// 方向键不响应
-		else if( evt.keyCode != 37 && evt.keyCode != 39 )
-		{
-			var key = $(this).val();
-			if( !key )
-			{
-				hide_menu();
-				$('.band-suggest-result').html('');
-				return false;
-			} 
-
-			get_suggest(key);
-		}
 		else if( evt.keyCode == 27 )
 		{
 			hide_menu();
 		}
-		
 	})
 	// Band search end
 
