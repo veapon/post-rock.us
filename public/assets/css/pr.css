@@ -194,3 +194,10 @@ a:hover, a:focus{
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.band-suggest-result .ln-create-band{
+	background: #fcf8e3;
+}
+.band-suggest-result .ln-create-band:hover{
+	color: #FFF;
+	background: #337ab7;
+}

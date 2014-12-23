@@ -219,7 +219,7 @@ $(function(){
 		// 方向键不响应
 		else if( evt.keyCode != 37 && evt.keyCode != 39 )
 		{
-			var key = $(this).val();
+			var key = $.trim($(this).val());
 			if( !key )
 			{
 				hide_menu();
@@ -298,28 +298,21 @@ function get_suggest(key)
 		url: '<?php echo url("bands"); ?>?f=json&q='+encodeURIComponent(key),
 		dataType: 'json',
 		success: function(data){
-
+			var html = '';
 			if( data && data.length > 0 )
 			{
-				var html = '';
 				for( var i in data )
 				{
 					html += '<li class="suggest_item" data-id="'+data[i]['id']+'" data-name="'+data[i]['name']+'" onclick="select_item( $(this).index() ); hide_menu();"><a role="menuitem" href="javascript:;">'+data[i]['name']+'</a></li>';
-				}
-
-				if( html )
-				{
-					$('.band-suggest-result').html(html).slideDown('fast');
-				}
-				else
-				{
-					hide_menu();
+					
 				}
 			} 
 			else
 			{
-				hide_menu();
+				//hide_menu();
+				html += '<li><a class="ln-create-band" role="menuitem" href="javascript:;">+ Create '+key+'\'s profile</a></li>';
 			}
+			$('.band-suggest-result').html(html).slideDown('fast');
 		}
 	}) // ajax end
 }
