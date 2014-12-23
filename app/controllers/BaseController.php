@@ -46,11 +46,13 @@ class BaseController extends Controller {
 
 	public function tmpPicUpload()
 	{
-		$res = $this->upload(array('field'=>'file'));
+		$field = Input::get('field', 'file');
+		$res = $this->upload(array('field'=>$field));
 
 		if (!$res) {
 			$return['error'] = isset($this->uploadError) ? $this->uploadError : 'Upload failed';
 		} else {
+			$return['field'] = $field;
 			$return['url'] = Config::get('app.picHost') . '/temp/'.$res['name'];
 		}
 

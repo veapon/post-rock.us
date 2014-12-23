@@ -119,6 +119,9 @@ a:hover, a:focus{
 	max-width: 360px;
 	width: 100%;
 }
+.form .band-cover{
+	max-width: 720px;
+}
 
 .width-half{
 	width: 65% !important;
@@ -127,6 +130,21 @@ a:hover, a:focus{
 .btn-upload{
 	position: relative;
 	overflow: hidden;
+	padding: 3px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.upload-holder{
+	height: 160px;
+	line-height: 160px;
+	color: #999;
+    background: #ddd;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 0;
 }
 
 .file-upload{
@@ -195,9 +213,21 @@ a:hover, a:focus{
 	text-overflow: ellipsis;
 }
 .band-suggest-result .ln-create-band{
-	background: #fcf8e3;
+	color: #337ab7;
 }
-.band-suggest-result .ln-create-band:hover{
+.band-suggest-result .ln-create-band:hover, .band-suggest-result .ln-create-band:focus{
 	color: #FFF;
 	background: #337ab7;
+}
+
+.album-form-wrapper{
+	position: relative;
+}
+.album-form-wrapper .band-form{
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	display: none;
+	width: 100%;
 }

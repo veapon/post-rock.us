@@ -81,7 +81,8 @@ class BandController extends BaseController
 
 			return Response::json(array(
 				'status'=>1,
-				'url'	=>url('band/'.$id)
+				'url'	=>url('band/'.$id),
+				'band'	=>array('id'=>$id, 'name'=>$p['name'])
 			));
 		}
 		

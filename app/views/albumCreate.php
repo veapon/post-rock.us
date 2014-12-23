@@ -17,8 +17,9 @@
 </head> 
 <body>
 	<?php include app_path().'/views/banner.php'; ?>	
-	<div class="wrapper">
-		<div class="main form">
+	<div class="wrapper album-form-wrapper">
+		<!-- album-from start -->
+		<div class="main form album-from" id="albumFormWrapper">
 			<form role="form" class="paper" method="post" id="albumForm">
 				<div class="from-grup">
 					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
@@ -27,9 +28,10 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="btn-upload">						
-							<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail cover" id="cover">
-							<input name="cover" id="txtCover" type="hidden" />
-							<input id="fileupload" type="file" name="file" class="file-upload">
+							<img class="img-thumbnail cover" id="cover" style="display:none;">
+							<p class="upload-holder" id="albumCoverHolder">COVER</p>
+							<input name="cover" id="txtCover" type="hidden" autocomplete="off"/>
+							<input type="file" name="file" class="file-upload">
 						</div>
 					</div>
 					<div class="col-md-9">
@@ -55,7 +57,7 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-file"></span>
 								</span>
-								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album">	
+								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album" autocomplete="off">	
 							</div>
 												
 						</div>
@@ -65,7 +67,7 @@
 								<span class="input-group-addon">
 									<span class="glyphicon glyphicon-calendar"></span>
 								</span>
-								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released"  data-date-format="yyyy-mm-dd">
+								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released"  data-date-format="yyyy-mm-dd" autocomplete="off">
 							</div>													
 						</div>
 						<div class="form-group width-half">
@@ -85,7 +87,7 @@
 
 						<div class="form-group">
 							<label for="txtSongs">Tracks</label>
-							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line"></textarea>	
+							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line" autocomplete="off"></textarea>	
 						</div>
 
 						<div class="form-group">
@@ -94,11 +96,112 @@
 					</div>
 				</div>			
 			</form>
-		</div>		
+		</div>
+		<!-- album-from end -->
+		
+		<!-- band-from start -->
+		<div class="main form band-form" id="bandFormWrapper">
+			<form role="form" class="paper" method="post" id="bandForm">
+				<div class="from-grup">
+					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="btn-upload" style="text-align: center;">
+						<p class="upload-holder" id="bandCoverHolder">COVER</p>
+						<img src="" class="cover band-cover" id="bandCover" style="display:none;">				
+						<input name="poster" id="txtBandCover" type="hidden" />
+						<input type="file" name="bandFile" class="file-upload">
+					</div>
+				</div>	
+
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-users"></i>
+						</span>
+						<input id="txtBand2" type="text" class="form-control" name="name" placeholder="Band name" required autocomplete="off">	
+					</div>												
+				</div>
+
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-home"></i>
+						</span>
+						<input id="txtSite" type="url" class="form-control" name="homepage" placeholder="Official site" autocomplete="off">	
+					</div>												
+				</div>	
+
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-facebook"></i>
+						</span>
+						<input id="txtFacebook" type="url" class="form-control" name="facebook" placeholder="Facebook" autocomplete="off">	
+					</div>												
+				</div>		
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-twitter"></i>
+						</span>
+						<input id="txtTwitter" type="url" class="form-control" name="twitter" placeholder="Twitter" autocomplete="off">	
+					</div>												
+				</div>	
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-soundcloud"></i>
+						</span>
+						<input id="txtSoundcloud" type="url" class="form-control" name="soundcloud" placeholder="Soundcloud" autocomplete="off">	
+					</div>												
+				</div>	
+
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">
+							<i class="fa fa-bold"></i>
+						</span>
+						<input id="txtBandcamp" type="url" class="form-control" name="bandcamp" placeholder="Bandcamp" autocomplete="off">	
+					</div>												
+				</div>	
+
+				<div class="form-group">
+					<div class="input-group col-md-7">
+						<span class="input-group-addon">									
+							<span class="fa fa-globe"></span>
+						</span>								
+						<?php 
+							if (isset($countries['AF'])) {
+								echo '<select class="form-control" name="region" required autocomplete="off"><option value="">Country/Region</option>';
+								foreach ($countries as $v) {
+									echo '<option value="'.$v.'">'.$v.'</option>';
+								}
+								echo '</select>';
+							}
+						?>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="txtProfile">Profile</label>
+					<textarea id="txtProfile" class="form-control" name="profile" style="resize: vertical; height: 160px;" autocomplete="off"></textarea>
+				</div>
+
+				<div class="form-group">
+					<!-- <button type="submit" class="btn btn-primary ladda-button" id="btnSubmit" data-style="expand-right"><span class="ladda-label">Submit</span></button> -->
+					<button data-style="expand-right" class="btn btn-primary ladda-button" data-size="s" id="btnBandSubmit"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+					<button class="btn btn-default" id="btnBandCancle" type="button">Cancle</button>
+				</div>
+
+			</form>
+		</div>	
+		<!-- band-from end -->		
 	</div>
 	<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
 	<script src="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="http://cdn.staticfile.org/holder/2.4.1/holder.js"></script>
+
 	<script src="<?php echo url();?>/assets/js/jquery.ui.widget.js"></script>
 	<script src="<?php echo url();?>/assets/js/jquery.fileupload.js"></script>
 	<script src="http://cdn.staticfile.org/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
@@ -106,6 +209,8 @@
 	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda.min.js"></script>	
 <script>
 $(function(){
+	$('#txtDate').datepicker({autoclose: true});
+
 	// btnApi click start
 	$('#btnApi').click(function(){
 		var id = $('#txtApi').val();
@@ -141,14 +246,26 @@ $(function(){
 	// btnApi click end
 
 	// fileupload start
-	$('#fileupload').fileupload({
-        url: '<?php echo url("upload/tmp"); ?>',
-        dataType: 'json',
-        done: function (e, data) {      	
-            $('#txtCover').val(data.result.url);
-            $('#cover').attr('src', data.result.url);
-        }
-    })		
+	$('.file-upload').each(function(){
+		var field = $(this).attr('name');
+		$(this).fileupload({
+	        url: '<?php echo url("upload/tmp"); ?>?field='+field,
+	        dataType: 'json',
+	        done: function (e, data) {
+	        	if (data.result.field == 'file') {
+	        		$('#txtCover').val(data.result.url);
+	 				$('#albumCoverHolder').hide();
+	            	$('#cover').attr('src', data.result.url).show();
+	        	} else if (data.result.field == 'bandFile') {
+	        		$('#txtBandCover').val(data.result.url);
+	 				$('#bandCoverHolder').hide();
+	            	$('#bandCover').attr('src', data.result.url).show();
+	        	}
+	            
+	            $('.btn-upload').css('border', 'none');
+	        }
+	    })
+	})		
     // fileupload end
 
     // search start
@@ -186,7 +303,7 @@ $(function(){
 		// 回车
 		else if( evt.keyCode == 13 )
 		{
-			select_item(curt_focus);
+			select_item(menuitem.eq(curt_focus).data());
 			hide_menu();
 		}
 		// ESC
@@ -201,7 +318,7 @@ $(function(){
 	// Band search start
 	$('#txtBand').on('input', function(evt){
 		
-		var key = $(this).val();
+		var key = $.trim($(this).val());
 		if( !key )
 		{
 			hide_menu();
@@ -240,7 +357,7 @@ $(function(){
 		$(this).remove();
 	})
 
-	// band form submit start
+	// album form submit start
     $('#albumForm').on('submit', function(e){
     	e.preventDefault();
     	var l = Ladda.create(document.querySelector('#btnSubmit'));
@@ -274,8 +391,51 @@ $(function(){
     		$('#fileupload').fileupload('enable');
     	})
     })
+    // album form submit end
+
+    // band form submit start
+    $('#bandForm').on('submit', function(e){
+    	e.preventDefault();
+    	var l = Ladda.create(document.querySelector('#btnBandSubmit'));
+	 	l.start();
+	 	$('#fileuploadBand').fileupload('disable');
+
+    	var data = $(this).serialize();
+    	//console.log(data);
+    	$.ajax({
+    		url: '<?php echo url("band/create"); ?>',
+    		type: 'post',
+    		data: data, 
+    		dataType: 'json'
+    	}).done(function(res){
+    		if(res.status == 0) {
+    			// failed to create band
+    			$('#alert').html('Something went wrong.').show();
+    		} else if(res.status == 1 || res.status == -1) {
+    			// success
+    			$('#bandFormWrapper').fadeOut(100, function(){
+    				select_item(res.band);
+    			})    			
+    		}
+    	}).always(function(){
+    		l.stop();
+    		$('#fileuploadBand').fileupload('enable');
+    	})
+    })
     // band form submit end
 	
+	// show band form
+    $('body').on('click', '.ln-create-band', function(){
+    	hide_menu();
+    	$('#txtBand2').val($(this).data('name'));
+    	$('#bandFormWrapper').fadeIn(300);
+    })
+
+    // hide band form
+    $('#btnBandCancle').click(function(e){
+    	e.preventDefault();
+    	$('#bandFormWrapper').fadeOut(300);
+    })
 })
 
 function hide_menu()
@@ -283,10 +443,15 @@ function hide_menu()
 	$('.band-suggest-result').hide();
 }
 
-function select_item(i)
+function select_item(band)
 {
-	var band = $('.band-suggest-result li').eq(i).data();
-	$('#selectedBands').append('<span class="label label-success selected-band" data-id="'+band['id']+'" title="'+band['name']+'">'+band['name']+' <span class="cancle-select-band" aria-hidden="true">&times;</span></span><input type="hidden" name="bands[]" value="'+band['id']+'" id="txtBand'+band['id']+'">');
+	// illegal data
+	if (typeof band.id == 'undefined' || typeof band.name == 'undefined') return false;
+
+	// band already selected
+	if ($('#txtBand'+band.id).val()) return false;
+
+	$('#selectedBands').append('<span class="label label-success selected-band" data-id="'+band.id+'" title="'+band.name+'">'+band.name+' <span class="cancle-select-band" aria-hidden="true">&times;</span></span><input type="hidden" name="bands[]" value="'+band.id+'" id="txtBand'+band.id+'">');
 }
 
 function get_suggest(key)
@@ -300,15 +465,11 @@ function get_suggest(key)
 			{
 				for( var i in data )
 				{
-					html += '<li class="suggest_item" data-id="'+data[i]['id']+'" data-name="'+data[i]['name']+'" onclick="select_item( $(this).index() ); hide_menu();"><a role="menuitem" href="javascript:;">'+data[i]['name']+'</a></li>';
+					html += '<li class="suggest_item" data-id="'+data[i]['id']+'" data-name="'+data[i]['name']+'" onclick="select_item( $(this).data() ); hide_menu();"><a role="menuitem" href="javascript:;">'+data[i]['name']+'</a></li>';
 					
 				}
 			} 
-			else
-			{
-				//hide_menu();
-				html += '<li><a class="ln-create-band" role="menuitem" href="javascript:;">+ Create '+key+'\'s profile</a></li>';
-			}
+			html += '<li class="suggest_item"><a class="ln-create-band" role="menuitem" href="javascript:;" data-name="'+key+'">+ Create '+key+'\'s profile</a></li>';
 			$('.band-suggest-result').html(html).slideDown('fast');
 		}
 	}) // ajax end
