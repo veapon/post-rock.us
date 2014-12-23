@@ -19,7 +19,7 @@
 				}
 				if ($row->facebook) {
 					$links .= '
-						<a href="'.$row->facebook.'" target="_blank" class="band-link" title="Facebook"><i class="fa fa-facebook-square"></i></a>
+						<a href="'.$row->facebook.'" target="_blank" class="band-link" title="Facebook"><i class="fa fa-facebook"></i></a>
 					';
 				}
 				if ($row->twitter) {

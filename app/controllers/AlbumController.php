@@ -19,23 +19,8 @@ class AlbumController extends BaseController
 		// p for post
 		$p = Input::all();
 
-		$artist = new Artist;
-		$artInfo = $artist->where('name', $p['artist'])->first(array('id'));
-		if (!isset($artInfo->id)) {
-			$artist->name = $p['artist'];
-			$artist->region = $p['region'];
-			$artist->create_time = date('Y-m-d H:i:s');
-			$artist->save();
-		} else {
-			$artist->id = $artInfo->id;
-		}
-		
-
-		if (!isset($artist->id)) {
-			die('error: aritst');
-		}
-		
-		$album = new Album;
+		$album = DB:table('album');
+		$ab = DB:table('albumBand');
 		$albumInfo = $album->where('artist_id', $artist->id)->where('name', $p['album'])->first(array('id'));
 		if (!isset($albumInfo->id)) {
 			$cover = '/album/' . uniqid() . '.' . getExt($p['cover']);

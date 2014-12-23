@@ -445,6 +445,7 @@ function hide_menu()
 
 function select_item(band)
 {
+	console.log(band);
 	// illegal data
 	if (typeof band.id == 'undefined' || typeof band.name == 'undefined') return false;
 

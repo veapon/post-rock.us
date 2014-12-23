@@ -18,7 +18,8 @@ class BandController extends BaseController
 		}
 		
 		// execute the query
-		$data['data'] = DB::table('band')
+		$band = new Band;
+		$data['data'] = $band
 			->whereRaw($where, $binding)
 			->orderBy('id', 'desc')
 			->paginate(10);
@@ -46,7 +47,7 @@ class BandController extends BaseController
 		// p for post
 		$p = Input::all();
 
-		$tBand = DB::table('band');
+		$tBand = new Band;
 		$band = $tBand->where('name', $p['name'])->first(array('id', 'name'));
 		if (!empty($band)) {
 			return Response::json(array(
@@ -90,7 +91,8 @@ class BandController extends BaseController
 	
 	public function detail($id)
 	{
-		$data['data'] = DB::table('band')->where('id', $id)->first();
+		$band = new Band;
+		$data['data'] = $band->where('id', $id)->first();
 		if (!empty($data['data'])) {
 			$data['data']->cover = Config::get('app.picHost') . "/band/$id.jpg";
 		}
@@ -100,8 +102,9 @@ class BandController extends BaseController
 
 	public function editForm($id)
 	{
+		$band = new Band;
 		$data['countries'] = Countries::getList('en', 'php', 'icu');
-		$data['data'] = (array)DB::table('band')->where('id', $id)->first();
+		$data['data'] = (array)$band->where('id', $id)->first();
 		if (!empty($data['data'])) {
 			$data['data']['cover'] = Config::get('app.picHost') . "/band/$id.jpg";
 		}
@@ -113,7 +116,7 @@ class BandController extends BaseController
 		// p for post
 		$p = Input::all();
 
-		$tBand = DB::table('band');
+		$tBand = new Band;
 		$data = array(
 			'name'		=>$p['name'],
 			'region'	=>$p['region'],
