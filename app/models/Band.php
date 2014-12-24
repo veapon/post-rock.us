@@ -1,5 +1,5 @@
 <?php
-class Band extends Eloquent 
+class Band extends \LaravelBook\Ardent\Ardent 
 {
 	public $timestamps = false;
 

@@ -1,5 +1,5 @@
 <?php
-class Album extends Eloquent 
+class Album extends \LaravelBook\Ardent\Ardent
 {
 	public $timestamps = false;
 
@@ -9,4 +9,5 @@ class Album extends Eloquent
 	 * @var string
 	 */
 	protected $table = 'album';
+
 }
