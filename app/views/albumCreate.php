@@ -28,7 +28,7 @@
 				<div class="row">
 					<div class="col-md-3">
 						<div class="btn-upload">						
-							<img class="img-thumbnail cover" id="cover" style="display:none;">
+							<img class="cover" id="cover" style="display:none;">
 							<p class="upload-holder" id="albumCoverHolder">COVER</p>
 							<input name="cover" id="txtCover" type="hidden" autocomplete="off"/>
 							<input type="file" name="file" class="file-upload">
@@ -91,7 +91,7 @@
 						</div>
 
 						<div class="form-group">
-							<button type="submit" class="btn btn-default" id="btnSubmit" data-style="expand-right" class="btn btn-primary ladda-button" data-size="s">Submit</button>
+							<button data-style="expand-right" class="btn btn-primary ladda-button" data-size="s" id="btnSubmit"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
 						</div>
 					</div>
 				</div>			
@@ -209,6 +209,7 @@
 	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda.min.js"></script>	
 <script>
 $(function(){
+	$('#btnSubmit').removeAttr('disabled');
 	$('#txtDate').datepicker({autoclose: true});
 
 	// btnApi click start
@@ -223,17 +224,11 @@ $(function(){
 				return false;
 			}
 			
-			$('#cover').attr('src', res['data']['cover']);
+			$('#albumCoverHolder').hide();
+			$('#cover').attr('src', res['data']['cover']).show();
 			$('#txtCover').val(res['data']['cover']);
 			$('#txtAlbum').val(res['data']['name']);
 			$('#txtDate').val(new Date(res['data']['releaseTime']).toDateString());
-
-			// artists
-			var strArtist = '';
-			for (i in res['data']['artist']) {
-				strArtist += ',' + res['data']['artist'][i]['name'];
-			}
-			$('#txtBand').val(strArtist.substr(1));
 
 			// songs
 			var strSongs = '';
@@ -241,6 +236,13 @@ $(function(){
 				strSongs += (i-0+1) + '. ' + res['data']['songs'][i]['name'] + "\n";
 			}
 			$('#txtSongs').val(strSongs);
+
+			// artists
+			var strArtist = '';
+			for (i in res['data']['artist']) {
+				strArtist += ',' + res['data']['artist'][i]['name'];
+			}
+			$('#txtBand').val(strArtist.substr(1)).focus();
 		})
 	})	
 	// btnApi click end
@@ -328,6 +330,16 @@ $(function(){
 
 		get_suggest(key);
 
+	}).on('focus', function(evt){
+		var key = $.trim($(this).val());
+		if( !key )
+		{
+			hide_menu();
+			$('.band-suggest-result').html('');
+			return false;
+		} 
+
+		get_suggest(key);
 	}).on('keyup', function(evt){
 		var menuitem = $('.suggest_item');
 		// down键
@@ -360,16 +372,17 @@ $(function(){
 	// album form submit start
     $('#albumForm').on('submit', function(e){
     	e.preventDefault();
-    	var l = Ladda.create(document.querySelector('#btnSubmit'));
-	 	l.start();
-	 	$('#fileupload').fileupload('disable');
 
-	 	// validation
+    	// validation
 	 	if ($('.selected-band').length < 1) {
 	 		$('#alert').html('You must select a band.').show();
 	 		$('#txtBand').parents('.form-group ').addClass('has-error');
 	 		return false;
 	 	}
+    	
+    	var l = Ladda.create(document.querySelector('#btnSubmit'));
+	 	l.start();
+	 	$('#fileupload').fileupload('disable');
 
     	var data = $(this).serialize();
     	//console.log(data);
@@ -382,7 +395,8 @@ $(function(){
     		if (res.status == -1) {
     			$('#alert').html('Band <a href="<?php echo url('band'); ?>/'+res.band.id+'" class="alert-link"><b>'+res.band.name+'</b></a> already exists.').show();
     		} else if(res.status == 0) {
-    			$('#alert').html('Something went wrong.').show();
+    			var msg = typeof res.msg == 'undefined' ? 'Something went wrong.' : res.msg;
+    			$('#alert').html(msg).show();
     		} else if(res.status == 1) {
     			location.href = res.url;
     		}
@@ -445,7 +459,6 @@ function hide_menu()
 
 function select_item(band)
 {
-	console.log(band);
 	// illegal data
 	if (typeof band.id == 'undefined' || typeof band.name == 'undefined') return false;
 

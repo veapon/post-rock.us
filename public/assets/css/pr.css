@@ -46,11 +46,6 @@ a:hover, a:focus{
 .nav-item{
 	color: #FFF;
 }
-.paper{
-	background: #FFF;
-	padding: 40px 20px;
-	border-radius: 4px;
-}
 
 .wrapper{
 	width: 768px;
@@ -86,8 +81,8 @@ a:hover, a:focus{
 	color: #ddd;
 }
 
-/*
-.entry{
+/* album */
+.album-entry{
 	margin-bottom: 45px;
 	border-radius: 4px;
 	padding: 15px;
@@ -101,16 +96,16 @@ a:hover, a:focus{
 	margin-bottom: 3px;
 }
 .entry-meta, .entry-meta a{
-	color: #666;
+	color: #555;
 	font-weight: bold;
 }
 .entry-meta a:hover{
 	color: #F30;
 }
-.entry .tracks{
+.album-entry .tracks{
 	margin-top: 7px;
 }
-*/
+
 .col-cover{
 	padding: 0 15px 0 0;
 }
@@ -165,9 +160,8 @@ a:hover, a:focus{
 .detail{
 	padding: 30px 20px;
 }
-
-.detail-meta{
-	
+.detail .title{
+	margin-top: 0;
 }
 .meta-label{
 	font-weight: bold;

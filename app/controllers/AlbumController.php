@@ -3,7 +3,9 @@ class AlbumController extends BaseController
 {
 	public function index()
 	{
-		$data['data'] = DB::table('albumInfo')->paginate(3);
+		$data['data'] = DB::table('albumInfo')
+			->orderBy('album_id', 'desc')
+			->paginate(3);
 		return View::make('albums', $data);
 	}
 
@@ -22,6 +24,7 @@ class AlbumController extends BaseController
 		if ( empty($p['bands']) 
 			|| !trim($p['album'])
 			|| !trim($p['release'])
+			|| !trim($p['cover'])
 		) 
 		{
 			return Response::json(array(
@@ -36,16 +39,16 @@ class AlbumController extends BaseController
 		
 		// album-band info
 		$albumInfo = $album
-			->join('AlbumBand', 'Album.id', '=', 'AlbumBand.album_id')
+			->join('albumBand', 'album.id', '=', 'albumBand.album_id')
 			->where('name', $p['album'])
-			->get();
-		var_dump($albumInfo);
+			->get()
+			->toArray();
 
 		// album with same band_id exists
-		if ($albumInfo && array_intersect($p['bands'], array_colum($albumInfo, 'band_id'))) {
+		if ($albumInfo && array_intersect($p['bands'], array_column($albumInfo, 'band_id'))) {
 			return Response::json(array(
 				'status'=>2,
-				'id'	=>$albumInfo[0]->id
+				'id'	=>$albumInfo[0]['id']
 			));
 		}
 		
@@ -63,55 +66,46 @@ class AlbumController extends BaseController
 		}
 
 		// rename cover
-		$this->savePicture($p['poster'], '/album/'.$id.'.jpg');
+		$this->savePicture($p['cover'], '/album/'.$album['id'].'.jpg');
 
 		// album-band relation
-		
-
-		/*
-		if (!isset($albumInfo->id)) {
-			$cover = '/album/' . uniqid() . '.' . getExt($p['cover']);
-			$album->name = $p['album'];
-			$album->artist_id = $artist->id;
-			$album->release_date = date('Y-m-d', strtotime($p['release']));
-			$album->create_time = date('Y-m-d H:i:s');
-			$album->cover = $cover;
-			$album->tracks = $p['tracks'];
-			$album->save();
-			$this->savePicture($p['cover'], $cover);
-		} else {
-			$album->id = $albumInfo->id;
+		$relData = array();
+		foreach ($p['bands'] as $v) {
+			$relData[] = array('band_id'=>$v, 'album_id'=>$album['id']);
 		}
+		$ab->insert($relData);
 
-		if (!isset($album->id)) {
-			die('error: album');
-		}
-
+		// album tracks
 		$tracks = explode("\r", $p['tracks']);
 		if (isset($tracks[0])) {
 			$values = array();
 			$valueCnt = 0;
 			foreach ($tracks as $t) {
 				if (!empty(trim($t))) {
-					$values = array_merge($values, array($t, $album->id, $artist->id, date('Y-m-d H:i:s')));
+					$values = array_merge($values, array($t, $album->id, date('Y-m-d H:i:s')));
 					$valueCnt++;
 				}
 			}
 
 			if ($valueCnt > 0) {
-				$track = new Track;
-				$sql = 'INSERT IGNORE INTO '.$track->getTable().' (`title`,`album_id`,`artist_id`,`create_time`) 
-					VALUES '.substr(str_repeat(',(?,?,?,?)', $valueCnt), 1);
+				$sql = 'INSERT IGNORE INTO track (`title`,`album_id`,`create_time`) 
+					VALUES '.substr(str_repeat(',(?,?,?)', $valueCnt), 1);
 				DB::insert($sql, $values);
 			}			
 		}
-		 */
 	}
 	
 	public function detail($id)
 	{
-		$data['data'] = DB::table('albumInfo')->where('album_id', $id)->first();
-
+		$album = new Album;
+		$albumInfo = $album
+			->selectRaw('album.name as album_name, album.id as album_id, album.release_date, album.tracks, band.name as band_name, band.id as band_id')
+			->join('albumBand', 'albumBand.album_id', '=', 'album.id')
+			->join('band', 'band.id', '=', 'albumBand.band_id')
+			->where('album.id', '=', $id)
+			->get();
+		var_dump($albumInfo);die;
+		
 		return View::make('album', $data);
 	}
 

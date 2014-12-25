@@ -11,18 +11,18 @@
 			foreach ($data as $row):
 
 				echo '
-					<div class="entry row">
-						<div class="entry-bg"></div>
+					<div class="album-entry row opacity-container">
+						<div class="opacity-bg"></div>
 						<div class="col-md-4 col-cover">
 							<a href="'.url('album/'.$row->album_id).'">
-								<img src="'.Config::get('app.picHost').$row->album_cover.'" class="img-responsive" alt="'.$row->album_name.'">
+								<img src="'.Config::get('app.picHost').'/album/'.$row->album_id.'.jpg" class="img-responsive" alt="'.$row->album_name.'">
 							</a>
 						</div>
 
 						<div class="col-md-8">
 							<h3 class="entry-title"><a href="'.url('album/'.$row->album_id).'">'.$row->album_name.'</a></h3>
 							<p class="entry-meta">
-								<a href="#">'.$row->artist_name.'</a>
+								'.$row->bands.'
 							</p>
 							<p class="entry-meta">
 								'.$row->release_date.'
