@@ -103,8 +103,32 @@ class AlbumController extends BaseController
 			->join('albumBand', 'albumBand.album_id', '=', 'album.id')
 			->join('band', 'band.id', '=', 'albumBand.band_id')
 			->where('album.id', '=', $id)
-			->get();
-		var_dump($albumInfo);die;
+			->get()
+			->toArray();
+
+		// 404 not found
+		if (!$albumInfo) {
+		
+		}
+
+		$data['data'] = $albumInfo[0];
+		unset($data['data']['band_id']);
+		unset($data['data']['band_name']);
+
+		// various artists
+		if (isset($albumInfo[1])) {
+			foreach ($albumInfo as $a) {
+				$data['data']['bands'][] = array(
+					'id'	=>$a['band_id'],
+					'name'	=>$a['band_name']
+				);
+			}		
+		} else {
+			$data['data']['bands'][0] = array(
+				'id'	=>$albumInfo[0]['band_id'],
+				'name'	=>$albumInfo[0]['band_name']
+			);
+		}
 		
 		return View::make('album', $data);
 	}

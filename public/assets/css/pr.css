@@ -109,7 +109,11 @@ a:hover, a:focus{
 .col-cover{
 	padding: 0 15px 0 0;
 }
-
+.form{
+    background: #FFF;
+    padding: 40px 20px;
+    border-radius: 4px;
+}
 .form .cover{
 	min-height: 160px;
 	max-width: 360px;
