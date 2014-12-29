@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>Albums</title>
 	<?php include app_path().'/views/header.php'; ?>	
 </head>
 <body>

@@ -18,9 +18,16 @@
 				</h1>
 				<p class="meta">
 					<span class="fa fa-users"></span>
-					<?php echo $data->bands; ?>
+					<?php 
+					$html = '';
+					foreach($data['bands'] as $v) {
+						$html .= ' <a class="band" href="'.url('band/'.$v['id']).'">'.$v['name'].'</a> /';
+					}
+					echo trim($html, '/');
+					?>
+
 				</p>
-				<p class="meta" title="Release data">
+				<p class="meta" title="Release date">
 					<span class="fa fa-calendar"></span>
 					<?php echo $data['release_date']; ?>
 				</p>

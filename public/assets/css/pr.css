@@ -93,11 +93,10 @@ a:hover, a:focus{
 	margin: 0 0 15px;
 }
 .entry-meta{
-	margin-bottom: 3px;
+	margin-bottom: 5px;
 }
 .entry-meta, .entry-meta a{
 	color: #555;
-	font-weight: bold;
 }
 .entry-meta a:hover{
 	color: #F30;
