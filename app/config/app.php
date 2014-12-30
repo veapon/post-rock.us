@@ -124,6 +124,7 @@ return array(
 
 		'Monarobase\CountryList\CountryListServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
+		'Barryvdh\Debugbar\ServiceProvider',
 
 	),
 

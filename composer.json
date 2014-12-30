@@ -9,7 +9,8 @@
 		"monarobase/country-list": "dev-master",
 		"veapon/netease-music": "dev-master",
 		"intervention/image": "dev-master",
-		"laravelbook/ardent": "2.*"
+		"laravelbook/ardent": "2.*",
+		"barryvdh/laravel-debugbar": "~1.8@dev"
 	},
 	"autoload": {
 		"classmap": [
