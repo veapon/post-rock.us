@@ -5,8 +5,10 @@
 		</div>
 		<nav class="nav">
 			<a href="<?php echo url('bands');?>" class="nav-item">Bands</a>
-			<span class="break">·</span>
+			<span class="break">&#12539;</span>
 			<a href="<?php echo url('albums');?>" class="nav-item">Albums</a>
+			<span class="break">&#12539;</span>
+			<a href="<?php echo url('dashboard');?>" class="nav-item">Dashboard</a>
 		</nav>
 	</div>
 </header>
