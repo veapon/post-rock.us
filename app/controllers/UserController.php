@@ -6,12 +6,12 @@ class UserController extends BaseController
 		
 	}
 
-	public function loginForm()
+	public function signinForm()
 	{
-		return View::make('login');
+		return View::make('signin');
 	}
 
-	public function login()
+	public function signin()
 	{
 	
 	}

@@ -21,7 +21,7 @@
 		<!-- album-from start -->
 		<div class="main form album-from" id="albumFormWrapper">
 			<form role="form" class="paper" method="post" id="albumForm">
-				<div class="from-grup">
+				<div class="from-group">
 					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
 					</div>
 				</div>

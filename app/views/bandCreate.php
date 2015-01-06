@@ -19,7 +19,7 @@
 	<div class="wrapper">
 		<div class="main form">
 			<form role="form" class="paper" method="post" id="bandForm">
-				<div class="from-grup">
+				<div class="from-group">
 					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
 					</div>
 				</div>
