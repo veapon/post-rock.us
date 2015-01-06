@@ -8,7 +8,7 @@ class UserController extends BaseController
 
 	public function loginForm()
 	{
-	
+		return View::make('login');
 	}
 
 	public function login()
@@ -18,7 +18,7 @@ class UserController extends BaseController
 	
 	public function signupForm()
 	{
-	
+		return View::make('signup');
 	}
 
 	public function signup()
