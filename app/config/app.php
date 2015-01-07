@@ -125,6 +125,7 @@ return array(
 		'Monarobase\CountryList\CountryListServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+		'Cartalyst\Sentry\SentryServiceProvider',
 
 	),
 
@@ -194,6 +195,7 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Countries' 	    => 'Monarobase\CountryList\CountryListFacade',
 		'Image' 	    => 'Intervention\Image\Facades\Image',
+		'Sentry' 	    => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 	),
 	
 	/*

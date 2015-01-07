@@ -8,5 +8,5 @@ class Band extends \LaravelBook\Ardent\Ardent
 	 *
 	 * @var string
 	 */
-	protected $table = 'band';
+	protected $table = 'bands';
 }

@@ -8,7 +8,7 @@ class Track extends \LaravelBook\Ardent\Ardent
 	 *
 	 * @var string
 	 */
-	protected $table = 'track';
+	protected $table = 'tracks';
 
 	public static function insertIgnore(array $tracks)
 	{

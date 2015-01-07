@@ -9,6 +9,6 @@ class Album extends \LaravelBook\Ardent\Ardent
 	 *
 	 * @var string
 	 */
-	protected $table = 'album';
+	protected $table = 'albums';
 
 }
