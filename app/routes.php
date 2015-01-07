@@ -35,6 +35,8 @@ Route::get('/band/update/{id}', 'BandController@editForm');
 Route::post('/band/update', 'BandController@edit');
 
 Route::get('/signin', 'UserController@signinForm');
+Route::get('/signup', 'UserController@signupForm');
+Route::post('/signup', 'UserController@signup');
 Route::group(array('before' => 'auth'), function()
 {
 	Route::get('/dashboard', 'UserController@index');

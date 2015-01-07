@@ -10,7 +10,8 @@
 		"veapon/netease-music": "dev-master",
 		"intervention/image": "dev-master",
 		"laravelbook/ardent": "2.*",
-		"barryvdh/laravel-debugbar": "~1.8@dev"
+		"barryvdh/laravel-debugbar": "~1.8@dev",
+		"cartalyst/sentry": "2.1.*"
 	},
 	"autoload": {
 		"classmap": [

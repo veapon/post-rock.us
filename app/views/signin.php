@@ -25,14 +25,14 @@
 				<div class="form-group">
 					<label for="pwd" class="col-sm-2 control-label">Password</label>
 					<div class="col-sm-5">
-						<input type="email" class="form-control" id="pwd" name="password">
+						<input type="password" class="form-control" id="pwd" name="password">
 					</div>												
 				</div>
 
 				<div class="form-group">
 					<!-- <button type="submit" class="btn btn-primary ladda-button" id="btnSubmit" data-style="expand-right"><span class="ladda-label">Submit</span></button> -->
 					<div class="col-sm-offset-2 col-sm-4">
-						<button data-style="expand-right" class="btn btn-default btn-sm ladda-button" data-size="s" id="btnSubmit"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+						<button data-style="expand-right" class="btn btn-default btn-sm ladda-button" data-size="s" id="btnSubmit"><span class="ladda-label">Signin</span><span class="ladda-spinner"></span></button>
 					</div>
 				</div>
 

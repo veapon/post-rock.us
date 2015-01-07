@@ -23,5 +23,7 @@ class UserController extends BaseController
 
 	public function signup()
 	{
+		$p = Input::all();
+		var_dump($p);
 	}
 }

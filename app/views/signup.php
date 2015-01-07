@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login</title>
+	<title>Signup</title>
 	<?php include app_path().'/views/header.php'; ?>	
 	<link rel="stylesheet" href="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda-themeless.min.css">
 </head> 
@@ -9,33 +9,38 @@
 	<?php include app_path().'/views/banner.php'; ?>	
 	<div class="wrapper">
 		<div class="main form">
-			<form role="form" class="paper" method="post" id="bandForm">
-				<div class="from-grup">
+			<form role="form" class="paper form-horizontal" method="post">
+				<div class="from-group">
 					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
 					</div>
 				</div>
 
 				<div class="form-group">
-					<div class="input-group col-md-7">
-						<span class="input-group-addon">
-							<i class="fa fa-user"></i>
-						</span>
-						<input id="txtUser" type="text" class="form-control" name="name" required>	
+					<label for="account" class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="account" name="account">
 					</div>												
 				</div>
 
 				<div class="form-group">
-					<div class="input-group col-md-7">
-						<span class="input-group-addon">
-							<i class="fa fa-lock"></i>
-						</span>
-						<input id="txtPwd" type="password" class="form-control" name="password" required>	
+					<label for="email" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-5">
+						<input type="email" class="form-control" id="email" name="email">
+					</div>												
+				</div>
+
+				<div class="form-group">
+					<label for="pwd" class="col-sm-2 control-label">Password</label>
+					<div class="col-sm-5">
+						<input type="password" class="form-control" id="pwd" name="password">
 					</div>												
 				</div>
 
 				<div class="form-group">
 					<!-- <button type="submit" class="btn btn-primary ladda-button" id="btnSubmit" data-style="expand-right"><span class="ladda-label">Submit</span></button> -->
-					<button data-style="expand-right" class="btn btn-primary ladda-button" data-size="s" id="btnSubmit"><span class="ladda-label">Submit</span><span class="ladda-spinner"></span></button>
+					<div class="col-sm-offset-2 col-sm-4">
+						<button data-style="expand-right" class="btn btn-default btn-sm ladda-button" data-size="s" id="btnSubmit"><span class="ladda-label">Signup</span><span class="ladda-spinner"></span></button>
+					</div>
 				</div>
 
 			</form>
