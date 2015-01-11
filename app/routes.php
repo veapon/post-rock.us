@@ -41,3 +41,5 @@ Route::group(array('before' => 'auth'), function()
 {
 	Route::get('/dashboard', 'UserController@index');
 });
+
+Route::get('/groups', 'PermissionController@createGroup');
