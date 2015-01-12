@@ -34,7 +34,7 @@ class AlbumController extends BaseController
 			
 		}
 
-		$album = new Album;
+		$album = new Albums;
 		$ab = new AlbumBand;
 		
 		// album-band info
@@ -88,7 +88,7 @@ class AlbumController extends BaseController
 			}
 
 			if ($valueCnt > 0) {
-				$sql = 'INSERT IGNORE INTO track (`title`,`album_id`,`create_time`) 
+				$sql = 'INSERT IGNORE INTO tracks (`title`,`album_id`,`create_time`) 
 					VALUES '.substr(str_repeat(',(?,?,?)', $valueCnt), 1);
 				DB::insert($sql, $values);
 			}			
@@ -97,7 +97,7 @@ class AlbumController extends BaseController
 	
 	public function detail($id)
 	{
-		$album = new Album;
+		$album = new Albums;
 		$albumInfo = $album
 			->selectRaw('album.name as album_name, album.id as album_id, album.release_date, album.tracks, band.name as band_name, band.id as band_id')
 			->join('albumBand', 'albumBand.album_id', '=', 'album.id')

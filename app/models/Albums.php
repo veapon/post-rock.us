@@ -1,5 +1,5 @@
 <?php
-class Album extends \LaravelBook\Ardent\Ardent 
+class Albums extends \LaravelBook\Ardent\Ardent 
 {
 	public $timestamps = false;
 	public $autoPurgeRedundantAttributes = true;

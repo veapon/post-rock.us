@@ -11,21 +11,39 @@
 		<div class="main form">
 			<form role="form" class="paper form-horizontal" method="post">
 				<div class="from-group">
-					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
+					<div class="alert alert-success" role="success" id="alert" style="display: none;">						
 					</div>
+					<?php
+					if(isset($success)) {
+						echo '
+						<div class="alert alert-success" role="success" id="alert">
+							Done! You will be redirect to the <a href="'.url('signin').'" class="alert-link">signin</a> page in 3 seconds.			
+						</div>
+						<script>
+							setTimeout(function(){location.href="'.url('signin').'"}, 3000)
+						</script>
+						';
+					} elseif(isset($error)) {
+						echo '
+						<div class="alert alert-danger" role="danger" id="alert">
+							'.$error.'			
+						</div>
+						';
+					}
+					?>
 				</div>
 
 				<div class="form-group">
-					<label for="account" class="col-sm-2 control-label">Name</label>
+					<label for="name" class="col-sm-2 control-label">Name</label>
 					<div class="col-sm-5">
-						<input type="text" class="form-control" id="account" name="account">
+						<input type="text" class="form-control" id="name" name="name" value="<?php if(isset($name)) echo $name; ?>">
 					</div>												
 				</div>
 
 				<div class="form-group">
 					<label for="email" class="col-sm-2 control-label">Email</label>
 					<div class="col-sm-5">
-						<input type="email" class="form-control" id="email" name="email">
+						<input type="email" class="form-control" id="email" name="email" value="<?php if(isset($email)) echo $email; ?>">
 					</div>												
 				</div>
 
@@ -47,51 +65,5 @@
 		</div>		
 	</div>
 	<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
-	<script src="http://cdn.staticfile.org/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/spin.min.js"></script>
-	<script src="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda.min.js"></script>	
-<script>
-$(function(){
-	$('#btnSubmit').removeAttr('disabled');
-	$('#fileupload').fileupload({
-        url: '<?php echo url("upload/tmp"); ?>',
-        dataType: 'json',
-        done: function (e, data) {      	
-            $('#txtCover').val(data.result.url);
-            $('#cover').attr('src', data.result.url).css('height', 'inherit');
-        }
-    })		
-
-	// band form submit start
-    $('#bandForm').on('submit', function(e){
-    	e.preventDefault();
-    	var l = Ladda.create(document.querySelector('#btnSubmit'));
-	 	l.start();
-	 	$('#fileupload').fileupload('disable');
-
-    	var data = $(this).serialize();
-    	//console.log(data);
-    	$.ajax({
-    		url: '<?php if(isset($data["id"])){ echo url("band/update"); }else{ echo url("band/create"); }?>',
-    		type: 'post',
-    		data: data, 
-    		dataType: 'json'
-    	}).done(function(res){
-    		if (res.status == -1) {
-    			$('#alert').html('Band <a href="<?php echo url('band'); ?>/'+res.band.id+'" class="alert-link"><b>'+res.band.name+'</b></a> already exists.').show();
-    		} else if(res.status == 0) {
-    			$('#alert').html('Something went wrong.').show();
-    		} else if(res.status == 1) {
-    			location.href = res.url;
-    		}
-    	}).always(function(){
-    		l.stop();
-    		$('#fileupload').fileupload('enable');
-    	})
-    })
-    // band form submit end
-
-})
-</script>
 </body>
 </html>

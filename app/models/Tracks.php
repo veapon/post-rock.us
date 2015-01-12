@@ -1,5 +1,5 @@
 <?php
-class Track extends \LaravelBook\Ardent\Ardent
+class Tracks extends \LaravelBook\Ardent\Ardent
 {
 	public $timestamps = false;
 
