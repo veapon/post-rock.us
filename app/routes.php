@@ -13,8 +13,7 @@
 
 Route::pattern('id', '[0-9]+');
 
-Route::get('/', 'HomeController@index');
-//Route::get('/', 'AlbumController@index');
+Route::get('/', 'AlbumController@index');
 
 Route::get('/spider/{module}/{id}', 'SpiderController@get');
 
@@ -37,6 +36,7 @@ Route::post('/band/update', 'BandController@edit');
 Route::get('/signin', 'UserController@signinForm');
 Route::get('/signup', 'UserController@signupForm');
 Route::post('/signup', 'UserController@signup');
+Route::post('/signin', 'UserController@signin');
 Route::group(array('before' => 'auth'), function()
 {
 	Route::get('/dashboard', 'UserController@index');

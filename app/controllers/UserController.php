@@ -3,7 +3,15 @@ class UserController extends BaseController
 {
 	public function index()
 	{
+		$user = Sentry::getUser();
+		var_dump($user);
 
+		echo '<hr>';
+		if ($user->isSuperUser()) {
+			echo 1;
+		} else {
+			echo 0;
+		}
 	}
 
 	public function signinForm()
@@ -13,13 +21,19 @@ class UserController extends BaseController
 
 	public function signin()
 	{
+		if (Sentry::check()) {
+			return Redirect::to('/dashboard');
+		}
+
 		$input['email'] = Input::get('email');
 		$input['password'] = Input::get('password');
-			
+		$remember = !Input::get('rem') ? false : true;
+		
+		$data = Input::all();
 		try
 		{
 		    // Authenticate the user
-		    $user = Sentry::authenticate($input, false);
+		    $user = Sentry::authenticate($input, $remember);
 		}
 		catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
 		{
@@ -46,6 +60,12 @@ class UserController extends BaseController
 		{
 		    $data['error'] = 'User is banned.';
 		}
+
+		if (isset($data['error'])) {
+			return View::make('signin', $data);	
+		}
+
+		return Redirect::to('/dashboard');
 	}
 
 	public function signupForm()

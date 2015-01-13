@@ -27,9 +27,9 @@
 					<div class="btn-upload" style="text-align: center;">	
 						<?php 
 						if (isset($data['cover'])) {					
-							echo '<img class="img-responsive img-thumbnail band-cover" id="cover" src="'.$data['cover'].'">';
+							echo '<img class="img-responsive band-cover" id="cover" src="'.$data['cover'].'">';
 						} else {
-							echo '<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive img-thumbnail band-cover" id="cover" style="min-height: 180px;">';
+							echo '<img data-src="holder.js/100%x100%/text:Cover" alt="Cover" class="img-responsive band-cover" id="cover" style="min-height: 180px;">';
 						}
 						if (isset($data['id'])) {
 							echo '<input type="hidden" name="id" value="'.$data['id'].'">';

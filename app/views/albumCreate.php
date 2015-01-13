@@ -55,9 +55,9 @@
 						<div class="form-group width-half">
 							<div class="input-group">
 								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-file"></span>
+									<i class="fa fa-file-text-o"></i>
 								</span>
-								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album" autocomplete="off">	
+								<input id="txtAlbum" type="text" class="form-control" name="album" placeholder="Album" value="<?php if(isset($data['album_name'])) echo $data['album_name'];?>" autocomplete="off">	
 							</div>
 												
 						</div>
@@ -65,18 +65,25 @@
 						<div class="form-group width-half">
 							<div class="input-group">
 								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-calendar"></span>
+									<i class="fa fa-calendar"></i>
 								</span>
-								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released"  data-date-format="yyyy-mm-dd" autocomplete="off">
+								<input id="txtDate" type="text" class="form-control" name="release" placeholder="Released"  data-date-format="yyyy-mm-dd" value="<?php if(isset($data['release_date'])) echo $data['release_date'];?>" autocomplete="off">
 							</div>													
 						</div>
 						<div class="form-group width-half">
 							<div id="selectedBands" class="selected-bands">
+								<?php 
+								if (isset($data['bands'])) {
+									foreach($data['bands'] as $v) {
+										echo '<span class="label label-success selected-band">'.$v['name'].' <span class="cancle-select-band" aria-hidden="true">&times;</span></span><input type="hidden" id="txtBand'.$v['id'].'" value="'.$v['id'].'" name="bands[]">';
+									}
+								}
+								?>
 								<!-- <span class="label label-success selected-band">Success <span class="cancle-select-band" aria-hidden="true">&times;</span></span> -->
 							</div>
 							<div class="input-group dropdown">
 								<span class="input-group-addon">
-									<span class="glyphicon glyphicon-user"></span>
+									<i class="fa fa-users"></i>
 								</span>
 								<input id="txtBand" type="text" class="form-control" name="artist" placeholder="Band" autocomplete="off">	
 								<ul class="dropdown-menu band-suggest-result" role="menu">

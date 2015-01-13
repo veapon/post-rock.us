@@ -99,16 +99,16 @@ class AlbumController extends BaseController
 	{
 		$album = new Albums;
 		$albumInfo = $album
-			->selectRaw('album.name as album_name, album.id as album_id, album.release_date, album.tracks, band.name as band_name, band.id as band_id')
-			->join('albumBand', 'albumBand.album_id', '=', 'album.id')
-			->join('band', 'band.id', '=', 'albumBand.band_id')
-			->where('album.id', '=', $id)
+			->selectRaw('albums.name as album_name, albums.id as album_id, albums.release_date, albums.tracks, bands.name as band_name, bands.id as band_id')
+			->join('albumBand', 'albumBand.album_id', '=', 'albums.id')
+			->join('bands', 'bands.id', '=', 'albumBand.band_id')
+			->where('albums.id', '=', $id)
 			->get()
 			->toArray();
 
 		// 404 not found
 		if (!$albumInfo) {
-		
+			App::abort(404);
 		}
 
 		$data['data'] = $albumInfo[0];
@@ -136,8 +136,40 @@ class AlbumController extends BaseController
 	public function editForm($id)
 	{
 		$data['countries'] = Countries::getList('en', 'php', 'icu');
-		$data['data'] = DB::table('albumInfo')->where('album_id', $id)->first();
-		return View::make('albumEdit', $data);
+		$album = new Albums;
+		$albumInfo = $album
+			->selectRaw('albums.name as album_name, albums.id as album_id, albums.release_date, albums.tracks, bands.name as band_name, bands.id as band_id')
+			->join('albumBand', 'albumBand.album_id', '=', 'albums.id')
+			->join('bands', 'bands.id', '=', 'albumBand.band_id')
+			->where('albums.id', '=', $id)
+			->get()
+			->toArray();
+
+		// 404 not found
+		if (!$albumInfo) {
+			App::abort(404);
+		}
+
+		$data['data'] = $albumInfo[0];
+		unset($data['data']['band_id']);
+		unset($data['data']['band_name']);
+
+		// various artists
+		if (isset($albumInfo[1])) {
+			foreach ($albumInfo as $a) {
+				$data['data']['bands'][] = array(
+					'id'	=>$a['band_id'],
+					'name'	=>$a['band_name']
+				);
+			}		
+		} else {
+			$data['data']['bands'][0] = array(
+				'id'	=>$albumInfo[0]['band_id'],
+				'name'	=>$albumInfo[0]['band_name']
+			);
+		}
+
+		return View::make('albumCreate', $data);
 	}
 	
 	public function edit()

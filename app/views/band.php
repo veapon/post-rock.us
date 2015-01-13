@@ -53,6 +53,10 @@
 				if ($data->profile) {
 						echo '<p class="band-profile">'.$data->profile.'</p>';
 				}
+
+				if ( ($user = Sentry::getUser()) && $user->hasAccess('band')) {
+					echo '<p><a href="'.url('band/update/'.$data->id).'" title="Update profile"><i class="fa fa-edit"></i></a></p>';
+				}
 				?>
 				
 			</div>

@@ -10,7 +10,7 @@
 		<div class="row detail opacity-container">
 			<div class="opacity-bg"></div>
 			<div class="col-md-4">
-				<img src="<?php echo Config::get('app.picHost').'/album/'.$data['album_id'].'.jpg'; ?>" alt="<?php echo $data['album_name'];?>" class="img-responsive cover" id="cover">
+				<img src="<?php echo Config::get('app.picHost').'/album/'.$data['album_id'].'.jpg'; ?>" alt="<?php echo $data['album_name'];?>" class="img-responsive cover" id="cover">				
 			</div>
 			<div class="col-md-8">
 				<h1 class="title">
@@ -32,9 +32,14 @@
 					<?php echo $data['release_date']; ?>
 				</p>
 				<div class="tracks">
-					<p><b>Tracks:</b></p>
+					<b>Tracks:</b><br>
 					<?php echo str_replace("\n", "<br>", $data['tracks']); ?>
 				</div>
+				<?php
+				if ( ($user = Sentry::getUser()) && $user->hasAccess('album')) {
+					echo '<p style="margin-top: 10px;"><a href="'.url('album/update/'.$data['album_id']).'" title="Update profile"><i class="fa fa-edit"></i></a></p>';
+				}
+				?>
 			</div>				
 		</div>		
 	</div>

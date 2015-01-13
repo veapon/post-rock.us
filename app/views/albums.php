@@ -23,10 +23,10 @@
 						<div class="col-md-8">
 							<h3 class="entry-title"><a href="'.url('album/'.$row->album_id).'">'.$row->album_name.'</a></h3>
 							<p class="entry-meta">
-								'.$row->bands.'
+								By: '.$row->bands.'
 							</p>
 							<p class="entry-meta">
-								'.$row->release_date.'
+								Release: '.$row->release_date.'
 							</p>
 							<div class="tracks">
 								'.str_replace("\n", "<br>", $row->tracks).'

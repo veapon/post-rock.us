@@ -104,7 +104,7 @@ class BandController extends BaseController
 	{
 		$band = new Bands;
 		$data['countries'] = Countries::getList('en', 'php', 'icu');
-		$data['data'] = (array)$band->where('id', $id)->first();
+		$data['data'] = (array)$band->where('id', $id)->first()->toArray();
 		if (!empty($data['data'])) {
 			$data['data']['cover'] = Config::get('app.picHost') . "/band/$id.jpg";
 		}

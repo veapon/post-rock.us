@@ -9,7 +9,7 @@ class PermissionController extends BaseController
 			$admin = Sentry::createGroup(array(
 					'name'        => 'Administrator',
 					'permissions' => array(
-						'admin'		=>1,
+						'superuser'	=>1,
 					),
 			));
 
