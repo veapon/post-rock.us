@@ -151,6 +151,7 @@ class AlbumController extends BaseController
 		}
 
 		$data['data'] = $albumInfo[0];
+		$data['data']['album_cover'] = Config::get('app.picHost').'/album/'.$data['data']['album_id'].'.jpg';
 		unset($data['data']['band_id']);
 		unset($data['data']['band_name']);
 
@@ -174,8 +175,81 @@ class AlbumController extends BaseController
 	
 	public function edit()
 	{
-		$data['countries'] = Countries::getList('en', 'php', 'icu');
-		$data['data'] = DB::table('albumInfo')->where('album_id', $id)->first();
-		return View::make('albumEdit', $data);
+		// p for post
+		$p = Input::all();
+
+		if ( empty($p['bands']) 
+			|| !trim($p['album'])
+			|| !trim($p['release'])
+			|| !trim($p['cover'])
+		) 
+		{
+			return Response::json(array(
+				'status'=>0,
+				'msg'	=>'It seems you forgot something...'
+			));
+			
+		}
+
+		$album = new Albums;
+		$ab = new AlbumBand;
+		
+		// album-band info
+		$albumInfo = $album
+			->join('albumBand', 'album.id', '=', 'albumBand.album_id')
+			->where('name', $p['album'])
+			->get()
+			->toArray();
+
+		// album with same band_id exists
+		if ($albumInfo && array_intersect($p['bands'], array_column($albumInfo, 'band_id'))) {
+			return Response::json(array(
+				'status'=>2,
+				'id'	=>$albumInfo[0]['id']
+			));
+		}
+		
+		$album->name = $p['album'];
+		$album->release_date = date('Y-m-d', strtotime($p['release']));
+		$album->create_time = $album->update_time = date('Y-m-d H:i:s');
+		$album->tracks = $p['tracks'];
+		$album->save();
+
+		// save failed
+		if (empty($album['id'])) {
+			return Response::json(array(
+				'status'=>0,
+			));
+		}
+
+		// rename cover
+		$this->savePicture($p['cover'], '/album/'.$album['id'].'.jpg');
+
+		// album-band relation
+		$relData = array();
+		foreach ($p['bands'] as $v) {
+			$relData[] = array('band_id'=>$v, 'album_id'=>$album['id']);
+		}
+		$ab->insert($relData);
+
+		// album tracks
+		$tracks = explode("\r", $p['tracks']);
+		if (isset($tracks[0])) {
+			$values = array();
+			$valueCnt = 0;
+			foreach ($tracks as $t) {
+				if (!empty(trim($t))) {
+					$values = array_merge($values, array($t, $album->id, date('Y-m-d H:i:s')));
+					$valueCnt++;
+				}
+			}
+
+			if ($valueCnt > 0) {
+				$sql = 'INSERT IGNORE INTO tracks (`title`,`album_id`,`create_time`) 
+					VALUES '.substr(str_repeat(',(?,?,?)', $valueCnt), 1);
+				DB::insert($sql, $values);
+			}			
+		}
+
 	}
 }

@@ -27,9 +27,20 @@
 				</div>
 				<div class="row">
 					<div class="col-md-3">
-						<div class="btn-upload">						
-							<img class="cover" id="cover" style="display:none;">
-							<p class="upload-holder" id="albumCoverHolder">COVER</p>
+						<div class="btn-upload">
+							<?php 
+							if (isset($data['album_cover'])) {					
+								echo '<img class="cover" id="cover" src="'.$data['album_cover'].'">';
+							} else {
+								echo '
+									<img class="cover" id="cover" style="display:none;">
+									<p class="upload-holder" id="albumCoverHolder">COVER</p>
+									';
+							}
+							if (isset($data['album_id'])) {
+								echo '<input type="hidden" name="id" value="'.$data['album_id'].'">';
+							}
+							?>
 							<input name="cover" id="txtCover" type="hidden" autocomplete="off"/>
 							<input type="file" name="file" class="file-upload">
 						</div>
@@ -94,7 +105,7 @@
 
 						<div class="form-group">
 							<label for="txtSongs">Tracks</label>
-							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line" autocomplete="off"></textarea>	
+							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line" autocomplete="off"><?php if(isset($data['tracks'])) echo $data['tracks'];?></textarea>	
 						</div>
 
 						<div class="form-group">
