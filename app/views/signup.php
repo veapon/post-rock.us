@@ -3,7 +3,6 @@
 <head>
 	<title>Signup</title>
 	<?php include app_path().'/views/header.php'; ?>	
-	<link rel="stylesheet" href="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda-themeless.min.css">
 </head> 
 <body>
 	<?php include app_path().'/views/banner.php'; ?>	

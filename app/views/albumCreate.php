@@ -381,6 +381,13 @@ $(function(){
 	})
 	// Band search end
 
+	// Hide search dropdown menu
+	$('body').on('click', function(e){
+		// console.log(e);
+		if ($(e.target).is($('#txtBand'))) return false;
+		hide_menu();
+	})
+
 	// remove selected band
 	$('body').on('click', '.selected-band', function(){
 		$('#txtBand'+$(this).data('id')).remove();

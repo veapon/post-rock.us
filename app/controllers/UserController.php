@@ -3,15 +3,8 @@ class UserController extends BaseController
 {
 	public function index()
 	{
-		$user = Sentry::getUser();
-		var_dump($user);
-
-		echo '<hr>';
-		if ($user->isSuperUser()) {
-			echo 1;
-		} else {
-			echo 0;
-		}
+		$data['user'] = Sentry::getUser();
+		return View::make('dashboard', $data);
 	}
 
 	public function signinForm()

@@ -3,17 +3,23 @@
 <head>
 	<title>Signin</title>
 	<?php include app_path().'/views/header.php'; ?>	
-	<link rel="stylesheet" href="http://cdn.staticfile.org/ladda-bootstrap/0.1.0/ladda-themeless.min.css">
 </head> 
 <body>
 	<?php include app_path().'/views/banner.php'; ?>	
 	<div class="wrapper">
 		<div class="main form">
 			<form role="form" class="paper form-horizontal" method="post">
-				<div class="from-group">
-					<div class="alert alert-danger" role="danger" id="alert" style="display: none;">						
-					</div>
-				</div>
+				<?php
+					if (isset($error)) {
+						echo '
+						<div class="from-group">
+							<div class="alert alert-danger" role="danger" id="alert">		
+							'.$error.'				
+							</div>
+						</div>
+						';
+					}
+				?>
 
 				<div class="form-group">
 					<label for="email" class="col-sm-2 control-label">Email</label>
