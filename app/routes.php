@@ -21,25 +21,28 @@ Route::post('/upload/tmp', 'BaseController@tmpPicUpload');
 
 Route::get('/albums', 'AlbumController@index');
 Route::get('/album/{id}', 'AlbumController@detail');
-Route::get('/album/create', 'AlbumController@createForm');
-Route::post('/album/create', 'AlbumController@create');
-Route::get('/album/update/{id}', 'AlbumController@editForm');
-Route::post('/album/update', 'AlbumController@edit');
 
 Route::get('/bands', 'BandController@index');
-Route::get('/band/create', 'BandController@createForm');
-Route::post('/band/create', 'BandController@create');
 Route::get('/band/{id}', 'BandController@detail');
-Route::get('/band/update/{id}', 'BandController@editForm');
-Route::post('/band/update', 'BandController@edit');
 
 Route::get('/signin', 'UserController@signinForm');
 Route::get('/signup', 'UserController@signupForm');
 Route::post('/signup', 'UserController@signup');
 Route::post('/signin', 'UserController@signin');
+
 Route::group(array('before' => 'auth'), function()
 {
 	Route::get('/dashboard', 'UserController@index');
+
+	Route::get('/album/create', 'AlbumController@createForm');
+	Route::post('/album/create', 'AlbumController@create');
+	Route::get('/album/update/{id}', 'AlbumController@editForm');
+	Route::post('/album/update', 'AlbumController@edit');
+
+	Route::get('/band/create', 'BandController@createForm');
+	Route::post('/band/create', 'BandController@create');
+	Route::get('/band/update/{id}', 'BandController@editForm');
+	Route::post('/band/update', 'BandController@edit');
 });
 
 Route::get('/groups', 'PermissionController@createGroup');

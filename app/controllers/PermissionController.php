@@ -3,6 +3,8 @@ class PermissionController extends BaseController
 {
 	public function createGroup()
 	{
+		return;
+
 		try
 		{
 			// Create the group

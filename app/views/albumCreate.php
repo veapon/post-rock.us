@@ -103,6 +103,25 @@
 							</div>												
 						</div>
 
+						<div class="form-group width-half">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<i class="fa fa-play-circle"></i>
+								</span>
+								<input id="txtStream" type="text" class="form-control" name="stream" placeholder="Stream" value="<?php if(isset($data['stream'])) echo $data['stream'];?>" autocomplete="off">	
+							</div>												
+						</div>
+
+						<div class="form-group width-half">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<i class="fa fa-shopping-cart"></i>
+								</span>
+								<input id="txtBuy" type="text" class="form-control" name="buy" placeholder="Buy" value="<?php if(isset($data['buy'])) echo $data['buy'];?>" autocomplete="off">	
+							</div>												
+						</div>
+
+						
 						<div class="form-group">
 							<label for="txtSongs">Tracks</label>
 							<textarea id="txtSongs" class="form-control" rows="6" name="tracks" style="resize: vertical" placeholder="One track per line" autocomplete="off"><?php if(isset($data['tracks'])) echo $data['tracks'];?></textarea>	

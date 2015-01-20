@@ -15,21 +15,21 @@
 					<div class="album-entry row opacity-container">
 						<div class="opacity-bg"></div>
 						<div class="col-md-4 col-cover">
-							<a href="'.url('album/'.$row->album_id).'">
-								<img src="'.Config::get('app.picHost').'/album/'.$row->album_id.'.jpg" class="img-responsive" alt="'.$row->album_name.'">
+							<a href="'.url('album/'.$row['album_id']).'">
+								<img src="'.Config::get('app.picHost').'/album/'.$row['album_id'].'.jpg" class="img-responsive" alt="'.$row['album_name'].'">
 							</a>
 						</div>
 
 						<div class="col-md-8">
-							<h3 class="entry-title"><a href="'.url('album/'.$row->album_id).'">'.$row->album_name.'</a></h3>
+							<h3 class="entry-title"><a href="'.url('album/'.$row['album_id']).'">'.$row['album_name'].'</a></h3>
 							<p class="entry-meta">
-								By: '.$row->bands.'
+								By: '.$row['bands'].'
 							</p>
 							<p class="entry-meta">
-								Release: '.$row->release_date.'
+								Release: '.$row['release_date'].'
 							</p>
 							<div class="tracks">
-								'.str_replace("\n", "<br>", $row->tracks).'
+								'.str_replace("\n", "<br>", $row['tracks']).'
 							</div>
 						</div>
 					</div>

@@ -40,7 +40,8 @@ input.form-controll{
 	font-size: 30px;
 	font-family: impact;
 	margin: 30px 0;
-	text-shadow: 1px 1px 0 #666;
+	opacity: .7;
+	text-shadow: 1px 1px 0 #444;
 }
 .logo:hover{
 	color: #FFF;

@@ -31,6 +31,20 @@
 					<span class="fa fa-calendar"></span>
 					<?php echo $data['release_date']; ?>
 				</p>
+				<?php
+				echo '<p class="meta">';
+				if ($data['stream']) {
+					echo '
+						<a href="'.$data['stream'].'" target="_blank" title="Stream"><i class="fa fa-play-circle"></i></a>
+					';
+				}
+				if ($data['buy']) {
+					echo '
+						<a href="'.$data['buy'].'" target="_blank" title="Buy"><i class="fa fa-shopping-cart"></i></a>
+					';
+				}
+				echo '</p>';
+				?>
 				<div class="tracks">
 					<b>Tracks:</b><br>
 					<?php echo str_replace("\n", "<br>", $data['tracks']); ?>

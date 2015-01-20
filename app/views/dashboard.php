@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Signin</title>
+	<title>Dashboard</title>
 	<?php include app_path().'/views/header.php'; ?>	
 </head> 
 <body>
 	<?php include app_path().'/views/banner.php'; ?>	
 	<div class="wrapper paper">
-		<div class="page-header">
-			<h1>Example page header <small>Subtext for header</small></h1>
-		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Panel title</h3>
+				<h3 class="panel-title">Hello, <?php echo $user->email; ?></h3>
 			</div>
 			<div class="panel-body">
-				Panel content
+				<a class="btn btn-default btn-sm" href="<?php echo url('band/create');?>">Add a band</a>
+				<a class="btn btn-default btn-sm" href="<?php echo url('album/create');?>">Add an album</a>
 			</div>
 		</div>
 	</div>

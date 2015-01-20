@@ -142,8 +142,7 @@ class AlbumController extends BaseController
 			->join('albumBand', 'albumBand.album_id', '=', 'albums.id')
 			->join('bands', 'bands.id', '=', 'albumBand.band_id')
 			->where('albums.id', '=', $id)
-			->get()
-			->toArray();
+			->get();
 
 		// 404 not found
 		if (!$albumInfo) {
