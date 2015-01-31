@@ -9,7 +9,7 @@
 	<div class="wrapper paper">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title">Hello, <?php echo $user->email; ?></h3>
+				<h3 class="panel-title">Hello, <?php echo $user->email; ?>[<a href="">Sign out</a>]</h3>
 			</div>
 			<div class="panel-body">
 				<a class="btn btn-default btn-sm" href="<?php echo url('band/create');?>">Add a band</a>

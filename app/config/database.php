@@ -31,7 +31,7 @@ return array(
 	/*
 	|--------------------------------------------------------------------------
 	| Database Connections
-	|--------------------------------------------------------------------------
+	|-------------------------------------------------------------------------
 	|
 	| Here are each of the database connections setup for your application.
 	| Of course, examples of configuring each database platform that is
@@ -47,7 +47,7 @@ return array(
 	'connections' => array(
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '10.1.10.2',
 			'database'  => 'post-rock',
 			'username'  => 'root',
 			'password'  => 'root',

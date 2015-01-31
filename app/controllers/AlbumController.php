@@ -5,7 +5,7 @@ class AlbumController extends BaseController
 	{
 		$data['data'] = DB::table('albumInfo')
 			->orderBy('album_id', 'desc')
-			->paginate(3);
+			->paginate();
 		return View::make('albums', $data);
 	}
 
@@ -99,7 +99,8 @@ class AlbumController extends BaseController
 	{
 		$album = new Albums;
 		$albumInfo = $album
-			->selectRaw('albums.name as album_name, albums.id as album_id, albums.release_date, albums.tracks, bands.name as band_name, bands.id as band_id')
+			->selectRaw('albums.name as album_name, albums.id as album_id, albums.release_date, albums.tracks, albums.stream, albums.buy, 
+				bands.name as band_name, bands.id as band_id')
 			->join('albumBand', 'albumBand.album_id', '=', 'albums.id')
 			->join('bands', 'bands.id', '=', 'albumBand.band_id')
 			->where('albums.id', '=', $id)
@@ -149,10 +150,12 @@ class AlbumController extends BaseController
 			App::abort(404);
 		}
 
+		dump($albumInfo);die;
 		$data['data'] = $albumInfo[0];
 		$data['data']['album_cover'] = Config::get('app.picHost').'/album/'.$data['data']['album_id'].'.jpg';
 		unset($data['data']['band_id']);
 		unset($data['data']['band_name']);
+		//dump($data);die;
 
 		// various artists
 		if (isset($albumInfo[1])) {

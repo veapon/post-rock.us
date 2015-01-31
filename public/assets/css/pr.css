@@ -16,7 +16,7 @@ a:hover, a:focus{
 .opacity-bg{
 	background: #FFF;
 	border-radius: 4px;
-	opacity: .65;
+	opacity: .5;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -90,7 +90,7 @@ input.form-controll{
 
 /* album */
 .album-entry{
-	margin-bottom: 45px;
+	margin-bottom: 30px;
 	border-radius: 4px;
 	padding: 15px;
 	overflow: hidden;
@@ -198,7 +198,7 @@ input.form-controll{
 }
 .band-entry{
 	padding: 15px;
-	margin-bottom: 45px;
+	margin-bottom: 30px;
 }
 .band-entry .entry-title{
 	margin-bottom: 15px;
